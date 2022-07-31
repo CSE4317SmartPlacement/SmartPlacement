@@ -98,7 +98,7 @@ function AgencyDetailPage() {
             <h4 className="mb-3">Application Information</h4>
             <Table hover bordered >
               <tbody>
-                <TableRow striped title="Request Date" value={agency.request_date} />
+                <TableRow striped title="Request Date" value={new Date(agency.request_date).toDateString() + " at " + new Date(agency.request_date).toLocaleTimeString()} />
                 <TableRow title="Placement Type" value={agency.placement_type} />
                 <TableRow title="Graduation level"
                   value={<div>
