@@ -191,9 +191,9 @@ const AgencyAccountRequest = () => {
         mailingAddress: mailingAddress,
       })
       .then((response) => {
-        if(response.body.message){
-          window.location.href('/');
-        }else{
+        if (response.body.message) {
+          window.location.href("/");
+        } else {
           alert("failed");
         }
       });
@@ -213,7 +213,7 @@ const AgencyAccountRequest = () => {
         </svg>
         Smart Placement
       </h1>
-    
+
       <div className="mb-3"></div>
       <div
         class="container form-horizontal col-sm-5 w-30"
