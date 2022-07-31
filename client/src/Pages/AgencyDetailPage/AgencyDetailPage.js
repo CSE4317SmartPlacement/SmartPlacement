@@ -59,7 +59,7 @@ function AgencyDetailPage() {
                 <TableRow title="Business Address" value={`${agency.bus_unit} ${agency.bus_street}, ${agency.bus_city} ${agency.bus_state} ${agency.bus_zip} ${agency.bus_country}`} />
                 <TableRow title="Phone" value={agency.phone ?? "N/A"} />
                 <TableRow title="Fax" value={agency.fax ?? "N/A"} />
-                <TableRow title="Website" value={agency.website ?? "N/A"} />
+                <TableRow title="Website" value={agency.website == null ? "N/A" : <a href={agency.website}>{agency.website}</a>} />
                 <TableRow title="Mailing Address" value={`${agency.mail_unit} ${agency.mail_street}, ${agency.mail_city} ${agency.mail_state} ${agency.mail_zip} ${agency.mail_country}`} />
                 <TableRow title="Preferred Contacts"
                   value={<div>
