@@ -5,6 +5,7 @@ import { Dropdown } from "react-bootstrap";
 import axios from "axios";
 
 const AgencyAccountRequest = () => {
+  var a = {}
   var states = [
     "Alabama",
     "Alaska",
