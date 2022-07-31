@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
+import { Button, Card, Row, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import MyNavbar from "../../Components/MyNavbar";
 import TableRow from "./Components/TableRow";
