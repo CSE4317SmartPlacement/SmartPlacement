@@ -107,7 +107,9 @@ const AdminHomepage = () => {
             <div className="card-body">
               <h5 className="card-title">Student Requests</h5>
               <p className="card-text">Check all the student request forms that are approved, pending and rejected</p>
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={(e) => {
+                history.push("/students")
+              }}>
                 Check
               </button>
             </div>

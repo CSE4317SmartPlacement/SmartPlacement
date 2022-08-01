@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import axios from "axios";
+
 const RequestStudent = () => {
   const hover = (e) => {
     e.target.style.background = "#205eb9";
@@ -172,6 +173,24 @@ const RequestStudent = () => {
                 id="nuvacancy"
                 placeholder="Number of Vacancy"
                 name="number_of_vacancy"
+                onChange={onFormChange}
+              />
+            </div>
+          </div>
+
+          <div className="mb-3"></div>
+
+          <div class="form-group row">
+            <label for="sein" class="col-sm-5 col-form-label">
+              EIN
+            </label>
+            <div class="col-sm-5">
+              <input
+                type="text"
+                class="form-control"
+                id="sein"
+                placeholder="EIN:"
+                name="ein"
                 onChange={onFormChange}
               />
             </div>

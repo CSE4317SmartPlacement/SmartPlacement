@@ -10,6 +10,8 @@ import StudentApplication from "./Pages/StudentApplication";
 import RequestStudent from "./Pages/RequestStudent";
 import AgencyListPage from "./Pages/AgencyListPage/AgencyListPage";
 import AgencyDetailPage from "./Pages/AgencyDetailPage/AgencyDetailPage";
+import StudentListPage from "./Pages/StudentListPage/StudentListPage";
+import studentDetailPage from "./Pages/StudentDetailPage/StudentDetailPage";
 
 function App() {
   return (
@@ -24,6 +26,10 @@ function App() {
         <Route exact path="/agency-detail" component={AgencyDetailPage} />
 
         <Route exact path="/agencies" component={AgencyListPage} />
+
+        <Route exact path="/student-detail" component={studentDetailPage} />
+
+        <Route exact path="/students" component={StudentListPage} />
 
         <Route exact path="/studenthomepage" component={StudentHomepage} />
         <Route

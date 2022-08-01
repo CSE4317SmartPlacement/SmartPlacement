@@ -72,6 +72,26 @@ router.get("/", async (req, res, next) => {
     });
 });
 
+// $PATCH :
+router.patch("/:id", async (req, res, next) => {
+    const studentId = req.params.id;
+    const status = req.body.status;
+    console.log(studentId, status)
+    db.query(
+        `UPDATE sp_student_application SET approval = ? WHERE stud_id = ?`,
+        [status, studentId],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(400).json({ success: false, error: err });
+            } else {
+                console.log(result);
+                res.status(200).json({ success: true, result: result });
+            }
+        }
+    );
+});
+
 //Fetch student applciation by id
 router.get("/:id", async (req, res, next) => {
     db.query(
@@ -87,5 +107,8 @@ router.get("/:id", async (req, res, next) => {
         }
     );
 });
+
+// Matching Student with Agency
+
 
 module.exports = router;

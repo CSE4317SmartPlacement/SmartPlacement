@@ -10,7 +10,9 @@ router.post("/", (req, res) => {
   var businessAddress = req.body.businessAddress;
 
   db.query(
-    `INSERT INTO sp_agency(agency_name,
+    `INSERT INTO sp_agency(
+      agency_id,
+      agency_name,
       placement_type,
       agency_type,
       ein,
@@ -36,8 +38,9 @@ router.post("/", (req, res) => {
       agent_lname,
       agent_phone,
       request_date,
-      preferred_contacts) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      preferred_contacts) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
     [
+      formValue.agency_id,
       formValue.agency_name,
       formValue.placement_type,
       formValue.agency_type,

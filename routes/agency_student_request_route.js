@@ -5,35 +5,49 @@ const db = require("../db");
 // Insert Student application
 router.post("/", (req, res) => {
     const formValue = req.body;
-
-    preferred_contacts: [[Object], [Object], [Object], [Object]],
-        db.query(
-            `Insert into sp_agency_student_request(
+    db.query(
+        `Select * from sp_agency where ein = ${formValue.ein}`,
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(400).json({ success: false, error: err });
+            } else {
+                console.log(result)
+                db.query(
+                    `Insert into sp_agency_student_request(
                       agency_id,
+                      ein,
                       number_of_vacancy,
                       graduation_level,
                       requirement,
                       immunization_record,
                       other_reports) 
-        VALUES (?,?,?,?,?,?)`,
-            [
-                formValue.agency_id,
-                formValue.number_of_vacancy,
-                formValue.graduation_level,
-                formValue.requirement,
-                JSON.stringify(formValue.immunization_record),
-                JSON.stringify(formValue.other_reports),
-            ],
-            (error, result) => {
-                if (error) {
-                    console.log(error);
-                    res.status(400).json({ success: false, error });
-                } else {
-                    console.log(result);
-                    res.status(200).json({ success: true, result });
-                }
+        VALUES (?,?,?,?,?,?,?)`,
+                    [
+                        result[0].agency_id,
+                        formValue.ein,
+                        formValue.number_of_vacancy,
+                        formValue.graduation_level,
+                        formValue.requirement,
+                        JSON.stringify(formValue.immunization_record),
+                        JSON.stringify(formValue.other_reports),
+                    ],
+                    (error, result) => {
+                        if (error) {
+                            console.log(error);
+                            res.status(400).json({ success: false, error });
+                        } else {
+                            console.log(result);
+                            res.status(200).json({ success: true, result });
+                        }
+                    }
+                );
             }
-        );
+        }
+    );
+
+
+
 });
 
 //Fetch all student applciations
