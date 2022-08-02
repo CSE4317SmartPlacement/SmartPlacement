@@ -11,7 +11,7 @@ router.post("/register", (req, res) => {
     const l_name = req.body.lastName;
 
     db.query(
-        "INSERT INTO sp_user(username,user_password,access_lvl,f_name,l_name) VALUES (?,?,?,?,?)",
+        "CALL add_account(?,?,?,?,?)",
         [username, user_password, access_lvl, f_name, l_name],
         (err, result) => {
             if (err) {
@@ -28,7 +28,7 @@ router.post("/login", (req, res) => {
     const user_password = req.body.password;
 
     db.query(
-        "SELECT * FROM sp_user WHERE username = ? AND user_password= ?",
+        "CALL login_check(?, ?)",
         [username, user_password],
         (err, result) => {
             if (err) {
@@ -48,7 +48,7 @@ router.post("/finduser", (req, res) => {
     console.log(username);
 
     db.query(
-        "SELECT * FROM sp_user WHERE username = ? ",
+        "CALL find_user(?)",
         [username],
         (err, result) => {
             if (err) {
@@ -68,7 +68,7 @@ router.post("/changePassword", (req, res) => {
     const username = req.body.username;
     const user_password = req.body.password;
     db.query(
-        "UPDATE sp_user SET user_password=? WHERE username = ?",
+        "CALL change_password(?, ?)",
         [user_password, username],
         (err, result) => {
             if (err) {

@@ -6,7 +6,7 @@ const db = require("../db");
 router.post("/", (req, res) => {
     const formValue = req.body;
     db.query(
-        `Select * from sp_agency where ein = ${formValue.ein}`,
+        `CALL fetch_agency_ein(?)`, [formValue.ein],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -14,15 +14,7 @@ router.post("/", (req, res) => {
             } else {
                 console.log(result)
                 db.query(
-                    `Insert into sp_agency_student_request(
-                      agency_id,
-                      ein,
-                      number_of_vacancy,
-                      graduation_level,
-                      requirement,
-                      immunization_record,
-                      other_reports) 
-        VALUES (?,?,?,?,?,?,?)`,
+                    `CALL agency_student_request(?,?,?,?,?,?)`,
                     [
                         result[0].agency_id,
                         formValue.ein,
@@ -52,7 +44,7 @@ router.post("/", (req, res) => {
 
 //Fetch all student applciations
 router.get("/", async (req, res, next) => {
-    db.query(`Select * from sp_agency_student_request`, (err, result) => {
+    db.query(`CALL fetch_agency_stud_request('%')`, (err, result) => {
         if (err) {
             console.log(err);
             res.status(400).json({ success: false, error: err });
@@ -66,7 +58,7 @@ router.get("/", async (req, res, next) => {
 //Fetch student applciation by id
 router.get("/:id", async (req, res, next) => {
     db.query(
-        `Select * from sp_agency_student_request where id = ${req.params.id}`,
+        `CALL fetch_agency_stud_request(?)`, [req.params.id],
         (err, result) => {
             if (err) {
                 console.log(err);
