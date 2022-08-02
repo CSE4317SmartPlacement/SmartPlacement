@@ -28,7 +28,7 @@ router.post("/login", (req, res) => {
     const user_password = req.body.password;
 
     db.query(
-        "CALL login_check(?, ?)",
+        "SELECT * FROM sp_user WHERE username = ? AND user_password= ?",
         [username, user_password],
         (err, result) => {
             if (err) {
