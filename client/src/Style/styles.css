@@ -129,3 +129,29 @@ input[type="text"] > .mb-3 {
 .agencyForm > a:hover {
   text-decoration: underline;
 }
+
+/* .studentRequestTable td {
+  border: black solid 1px !important;
+}
+.studentRequestTable th {
+  border: black solid 1px !important;
+} */
+.studentRequestTable {
+  height: 800px;
+  width: 80%;
+  margin: auto;
+  border: 3px;
+  border-radius: 10px;
+  background-color: white;
+  padding: 2rem;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+/* .studentLinks:hover {
+  cursor: pointer;
+} */
+
+.vacancyLink:hover {
+  cursor: pointer;
+  color: blue;
+}
