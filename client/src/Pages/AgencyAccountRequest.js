@@ -210,7 +210,6 @@ const AgencyAccountRequest = () => {
         </svg>
         Smart Placement
       </h1>
-
       <div className="mb-3"></div>
       <div
         class="container form-horizontal col-sm-5 w-30"
