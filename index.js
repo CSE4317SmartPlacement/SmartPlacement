@@ -1,7 +1,8 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const path = require("path");
-const cors = require("cors");
+const path = require('path');
+const mysql = require('mysql');
+const cors = require('cors');
 const PORT = process.env.PORT || 8080;
 
 app.use(cors());
