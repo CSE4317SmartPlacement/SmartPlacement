@@ -6,7 +6,7 @@ const db = require("../db");
 router.post("/", (req, res) => {
     const formValue = req.body;
     db.query(
-        `Select * from sp_agency where ein = ${formValue.ein}`,
+        `CALL fetch_agency_ein(?)`, [formValue.ein],
         (err, result) => {
             console.log(formValue.ein);
             console.log(formValue.agency_id);
@@ -16,15 +16,7 @@ router.post("/", (req, res) => {
             } else {
                 console.log(result)
                 db.query(
-                    `Insert into sp_agency_student_request(
-                      agency_id,
-                      ein,
-                      number_of_vacancy,
-                      graduation_level,
-                      requirement,
-                      immunization_record,
-                      other_reports) 
-        VALUES (?,?,?,?,?,?,?)`,
+                    `CALL agency_student_request(?,?,?,?,?,?)`,
                     [
                         result[0].agency_id,
                         formValue.ein,
@@ -57,7 +49,7 @@ router.patch("/:id", async (req, res, next) => {
     const status = req.body.status;
     console.log(Id, status)
     db.query(
-      "UPDATE sp_agency_student_request SET approval = ? WHERE id = ?",
+      "CALL update_agency_stud_request(?, ?)",
       [status, Id],
       (err, result) => {
         if (err) {
@@ -65,21 +57,23 @@ router.patch("/:id", async (req, res, next) => {
           res.status(400).json({ success: false, error: err });
         } else {
           console.log(result);
-          res.status(200).json({ success: true, result: result });
+          res.status(200).json({ success: true, result: result[0] });
         }
       }
     );
   });
 
+
+const test = '%';
 //Fetch all student applciations
 router.get("/", async (req, res, next) => {
-    db.query(`Select * from sp_agency_student_request`, (err, result) => {
+    db.query(`CALL fetch_agency_stud_request(?)`, [test], (err, result) => {
         if (err) {
             console.log(err);
             res.status(400).json({ success: false, error: err });
         } else {
             console.log(result);
-            res.status(200).json({ success: true, result: result });
+            res.status(200).json({ success: true, result: result[0] });
         }
     });
 });
@@ -87,7 +81,7 @@ router.get("/", async (req, res, next) => {
 //Fetch student applciation by id
 router.get("/:id", async (req, res, next) => {
     db.query(
-        `Select * from sp_agency_student_request where id = ${req.params.id}`,
+        `CALL fetch_agency_stud_request(?)`, [req.params.id],
         (err, result) => {
             if (err) {
                 console.log(err);

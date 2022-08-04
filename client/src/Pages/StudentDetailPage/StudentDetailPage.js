@@ -27,7 +27,7 @@ function StudentDetailPage() {
 
     var fetchStudentById = async () => {
         var response = await axios.get("/studapplication/" + student.stud_id)
-        setStudent(response.data.result)
+        setStudent(response.data.result[0])
     }
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 
 const db = mysql.createConnection({
-  user: "anmstha",
+  user: "application_user",
   host: "spdatabaseserver.mysql.database.azure.com",
   password: "SmartPlacement1",
   database: "sp_database",

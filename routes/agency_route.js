@@ -10,37 +10,8 @@ router.post("/", (req, res) => {
   var businessAddress = req.body.businessAddress;
 
   db.query(
-    `INSERT INTO sp_agency(
-      agency_id,
-      agency_name,
-      placement_type,
-      agency_type,
-      ein,
-      website,
-      graduation_level,
-      phone,
-      fax,
-      email,
-      bus_street,
-      bus_unit,
-      bus_city,
-      bus_state,
-      bus_zip,
-      bus_country,
-      mail_street,
-      mail_unit,
-      mail_city,
-      mail_state,
-      mail_zip,
-      mail_country,
-      agent_title,
-      agent_fname,
-      agent_lname,
-      agent_phone,
-      request_date,
-      preferred_contacts) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+    `CALL add_agency(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
     [
-      formValue.agency_id,
       formValue.agency_name,
       formValue.placement_type,
       formValue.agency_type,
@@ -86,7 +57,7 @@ router.patch("/:id", async (req, res, next) => {
   const status = req.body.status;
   console.log(agencyId, status)
   db.query(
-    `UPDATE sp_agency SET approval = ? WHERE agency_id = ?`,
+    `CALL agency_approval(?, ?)`,
     [status, agencyId],
     (err, result) => {
       if (err) {
@@ -94,21 +65,22 @@ router.patch("/:id", async (req, res, next) => {
         res.status(400).json({ success: false, error: err });
       } else {
         console.log(result);
-        res.status(200).json({ success: true, result: result });
+        res.status(200).json({ success: true, result: result[0] });
       }
     }
   );
 });
 
+const test = '%';
 //Fetch all agency
 router.get("/", async (req, res, next) => {
-  db.query(`Select * from sp_agency`, (err, result) => {
+  db.query(`CALL get_agency(?)`, [test], (err, result) => {
     if (err) {
       console.log(err);
       res.status(400).json({ success: false, error: err });
     } else {
       console.log(result);
-      res.status(200).json({ success: true, result: result });
+      res.status(200).json({ success: true, result: result[0] });
     }
   });
 });
@@ -116,7 +88,7 @@ router.get("/", async (req, res, next) => {
 //Fetch agency by id
 router.get("/agency/:id", async (req, res, next) => {
   db.query(
-    `Select * from sp_agency where agency_id = ${req.params.id}`,
+    `CALL get_agency(?)`, [req.params.id],
     (err, result) => {
       if (err) {
         console.log(err);

@@ -7,26 +7,7 @@ router.post("/", (req, res) => {
 
     preferred_contacts: [[Object], [Object], [Object], [Object]],
         db.query(
-            `Insert into sp_student_application(
-                      preferred_contacts,
-                      stud_title,
-                      stud_fname,
-                      stud_lname,
-                      stud_homephone,
-                      stud_email,
-                      stud_street,
-                      stud_city,
-                      stud_zipcode,
-                      stud_country,
-                      stud_id,
-                      registered_level,
-                      stud_mobilephone,
-                      stud_unit,
-                      stud_state,
-                      agent_type_one,
-                      agent_type_two,
-                      agent_type_three) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            `CALL student_application(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 JSON.stringify(formValue.preferred_contacts),
                 formValue.stud_title,
@@ -59,26 +40,13 @@ router.post("/", (req, res) => {
         );
 });
 
-//Fetch all student applciations
-router.get("/", async (req, res, next) => {
-    db.query(`Select * from sp_student_application`, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.status(400).json({ success: false, error: err });
-        } else {
-            console.log(result);
-            res.status(200).json({ success: true, result: result });
-        }
-    });
-});
-
 // $PATCH :
 router.patch("/:id", async (req, res, next) => {
     const studentId = req.params.id;
     const status = req.body.status;
     console.log(studentId, status)
     db.query(
-        `UPDATE sp_student_application SET approval = ? WHERE stud_id = ?`,
+        `CALL student_approval(?, ?)`,
         [status, studentId],
         (err, result) => {
             if (err) {
@@ -86,16 +54,31 @@ router.patch("/:id", async (req, res, next) => {
                 res.status(400).json({ success: false, error: err });
             } else {
                 console.log(result);
-                res.status(200).json({ success: true, result: result });
+                res.status(200).json({ success: true, result: result[0] });
             }
         }
     );
 });
 
+const test = '%';
+//Fetch all student applciations
+router.get("/", async (req, res, next) => {
+    db.query(`CALL fetch_studapplications(?)`, [test], 
+    (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(400).json({ success: false, error: err });
+        } else {
+            console.log(result);
+            res.status(200).json({ success: true, result: result[0] });
+        }
+    });
+});
+
 //Fetch student applciation by id
 router.get("/:id", async (req, res, next) => {
     db.query(
-        `Select * from sp_student_application where stud_id = ${req.params.id}`,
+        `CALL fetch_studapplications(?)`, [req.params.id],
         (err, result) => {
             if (err) {
                 console.log(err);
