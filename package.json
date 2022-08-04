@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "cd client && npm run build && cd..",
     "test": "echo something"
   },
   "author": "",
