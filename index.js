@@ -8,18 +8,10 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)+"/client/build"));
-app.get('*', (req,res) =>{
+app.get('/client/*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-/*
-app.get("/client/*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
-*/
-app.get('/client/*', function (req, res) {
-   res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
- });
 const agencyRoute = require("./routes/agency_route");
 const authRoute = require("./routes/auth_route");
 const studentRoute = require("./routes/student_route");
