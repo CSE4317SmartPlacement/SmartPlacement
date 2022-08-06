@@ -185,7 +185,7 @@ const AgencyAccountRequest = () => {
 
   const onSubmit = () => {
     axios
-      .post("/agency", {
+      .post("/agencyadd", {
         formValue: formValue,
         businessAddress: businessAddress,
         mailingAddress: mailingAddress,

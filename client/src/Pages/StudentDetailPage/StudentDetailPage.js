@@ -11,22 +11,22 @@ function StudentDetailPage() {
     const [student, setStudent] = useState(history.location.state.student)
 
     var onApprove = async (e) => {
-        await axios.patch("/studapplication/" + student.stud_id, { "status": student.approval == "pending" || student.approval == "reject" ? "approved" : "matching" })
+        await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": student.approval == "pending" || student.approval == "reject" ? "approved" : "matching" })
         await fetchStudentById()
     }
 
     var onReject = async (e) => {
-        await axios.patch("/studapplication/" + student.stud_id, { "status": student.approval == "reject" ? "pending" : "reject" })
+        await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": student.approval == "reject" ? "pending" : "reject" })
         await fetchStudentById()
     }
 
     var onCancel = async (e) => {
-        await axios.patch("/studapplication/" + student.stud_id, { "status": "approved" })
+        await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": "approved" })
         fetchStudentById()
     }
 
     var fetchStudentById = async () => {
-        var response = await axios.get("/studapplication/" + student.stud_id)
+        var response = await axios.post("/studapplication/" + student.stud_id)
         setStudent(response.data.result[0])
     }
 
@@ -117,7 +117,7 @@ function StudentDetailPage() {
                             {student.approval == "matching" || student.approval == "approved" ?
                                 <Button className="btn btn-info"
                                     onClick={async () => {
-                                        await axios.patch("/studapplication/" + student.stud_id, { "status": "matching" })
+                                        await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": "matching" })
                                         await fetchStudentById()
                                         history.push("/macthing")
                                     }}

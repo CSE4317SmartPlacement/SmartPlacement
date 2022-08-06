@@ -4,7 +4,7 @@ const router = require("express").Router();
 const db = require("../db");
 
 //
-router.post("/", (req, res) => {
+router.post("/agencyadd", (req, res) => {
   var formValue = req.body.formValue;
   var mailingAddress = req.body.mailingAddress;
   var businessAddress = req.body.businessAddress;
@@ -52,7 +52,7 @@ router.post("/", (req, res) => {
 });
 
 // $PATCH :
-router.patch("/:id", async (req, res, next) => {
+router.patch("/agencyapproval/:id", async (req, res, next) => {
   const agencyId = req.params.id;
   const status = req.body.status;
   console.log(agencyId, status)
@@ -86,7 +86,7 @@ router.post("/agency", async (req, res, next) => {
 });
 
 //Fetch agency by id
-router.get("/agency/:id", async (req, res, next) => {
+router.post("/agency/:id", async (req, res, next) => {
   db.query(
     `CALL get_agency(?)`, [req.params.id],
     (err, result) => {

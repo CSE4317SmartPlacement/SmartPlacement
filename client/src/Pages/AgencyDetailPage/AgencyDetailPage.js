@@ -11,7 +11,7 @@ function AgencyDetailPage() {
 
   var onApprove = (e) => {
 
-    axios.patch("/agency/" + agency.agency_id, { "status": agency.approval == "approved" ? "pending" : "approved" })
+    axios.patch("/agencyapproval/" + agency.agency_id, { "status": agency.approval == "approved" ? "pending" : "approved" })
       .then((response) => {
         console.log(response)
         history.push("/agencies")
@@ -19,7 +19,7 @@ function AgencyDetailPage() {
   }
 
   var onReject = (e) => {
-    axios.patch("/agency/" + agency.agency_id, { "status": agency.approval == "reject" ? "pending" : "reject" })
+    axios.patch("/agencyapproval/" + agency.agency_id, { "status": agency.approval == "reject" ? "pending" : "reject" })
       .then((response) => {
         console.log(response)
         history.push("/agencies")

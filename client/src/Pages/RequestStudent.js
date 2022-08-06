@@ -36,7 +36,7 @@ const RequestStudent = () => {
     ],
   });
   const requeststd = () => {
-    axios.post("/agency-student-request", formValue).then((response) => {
+    axios.post("/agency-student-requestadd", formValue).then((response) => {
       history.push("/agencyhomepage");
       console.log(response);
     });

@@ -3,7 +3,7 @@ const router = require("express").Router();
 const db = require("../db");
 
 // Insert Student application
-router.post("/agency-student-request", (req, res) => {
+router.post("/agency-student-requestadd", (req, res) => {
     const formValue = req.body;
     db.query(
         `CALL fetch_agency_ein(?)`, [formValue.ein],
@@ -44,7 +44,7 @@ router.post("/agency-student-request", (req, res) => {
 
 });
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/agency-student-requestapproval/:id", async (req, res, next) => {
     const Id = req.params.id;
     const status = req.body.status;
     console.log(Id, status)
@@ -79,7 +79,7 @@ router.post("/agency-student-request", async (req, res, next) => {
 });
 
 //Fetch student applciation by id
-router.get("/:id", async (req, res, next) => {
+router.get("/agency-student-request/:id", async (req, res, next) => {
     db.query(
         `CALL fetch_agency_stud_request(?)`, [req.params.id],
         (err, result) => {

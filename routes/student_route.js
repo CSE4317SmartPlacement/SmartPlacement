@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const db = require("../db");
 // Insert Student application
-router.post("/", (req, res) => {
+router.post("/studapplicationadd", (req, res) => {
     const formValue = req.body;
 
     preferred_contacts: [[Object], [Object], [Object], [Object]],
@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
 });
 
 // $PATCH :
-router.patch("/:id", async (req, res, next) => {
+router.patch("/studapplicationapproval/:id", async (req, res, next) => {
     const studentId = req.params.id;
     const status = req.body.status;
     console.log(studentId, status)
@@ -76,7 +76,7 @@ router.post("/studapplication", async (req, res, next) => {
 });
 
 //Fetch student applciation by id
-router.get("/:id", async (req, res, next) => {
+router.post("/studapplication/:id", async (req, res, next) => {
     db.query(
         `CALL fetch_studapplications(?)`, [req.params.id],
         (err, result) => {

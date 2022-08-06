@@ -25,7 +25,7 @@ const StudentApplication = () => {
 
   const submitApplication = (e) => {
     e.preventDefault();
-    axios.post("/studapplication", formValue).then((response) => {
+    axios.post("/studapplicationadd", formValue).then((response) => {
       history.push("/studenthomepage");
     });
   };
