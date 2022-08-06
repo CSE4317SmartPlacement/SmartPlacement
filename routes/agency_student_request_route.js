@@ -3,7 +3,7 @@ const router = require("express").Router();
 const db = require("../db");
 
 // Insert Student application
-router.post("/", (req, res) => {
+router.post("/agency-student-request", (req, res) => {
     const formValue = req.body;
     db.query(
         `CALL fetch_agency_ein(?)`, [formValue.ein],
@@ -66,7 +66,7 @@ router.patch("/:id", async (req, res, next) => {
 
 const test = '%';
 //Fetch all student applciations
-router.get("/", async (req, res, next) => {
+router.post("/agency-student-request", async (req, res, next) => {
     db.query(`CALL fetch_agency_stud_request(?)`, [test], (err, result) => {
         if (err) {
             console.log(err);

@@ -73,7 +73,7 @@ router.patch("/:id", async (req, res, next) => {
 
 const test = '%';
 //Fetch all agency
-router.get("/", async (req, res, next) => {
+router.post("/agency", async (req, res, next) => {
   db.query(`CALL get_agency(?)`, [test], (err, result) => {
     if (err) {
       console.log(err);

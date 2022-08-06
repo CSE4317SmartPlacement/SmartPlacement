@@ -23,7 +23,7 @@ function AgencyListPage() {
   const [agencyList, setAgencyList] = useState([]);
   const [agencies, setAgencies] = useState([]);
   const fetchAgency = () => {
-    axios.get("/agency").then((response) => {
+    axios.post("/agency").then((response) => {
       console.log(response.data);
       setAgencies(response.data.result);
       setAgencyList(

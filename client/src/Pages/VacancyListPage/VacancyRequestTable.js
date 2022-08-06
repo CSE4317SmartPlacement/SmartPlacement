@@ -16,7 +16,7 @@ const VacancyRequestTable = () =>  {
       getData();
   },[]);
     const getData = ()=>{
-        Axios.get("/agency-student-request").then((response)=>{
+        Axios.post("/agency-student-request").then((response)=>{
             setData(response.data.result);
             console.log(response.data);
         })};

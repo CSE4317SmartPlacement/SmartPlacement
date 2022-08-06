@@ -62,7 +62,7 @@ router.patch("/:id", async (req, res, next) => {
 
 const test = '%';
 //Fetch all student applciations
-router.get("/", async (req, res, next) => {
+router.post("/studapplication", async (req, res, next) => {
     db.query(`CALL fetch_studapplications(?)`, [test], 
     (err, result) => {
         if (err) {

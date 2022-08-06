@@ -24,7 +24,7 @@ function StudentListPage() {
     const [studentList, setStudentList] = useState([]);
     const [students, setStudents] = useState([]);
     const fetchStudents = () => {
-        axios.get("/studapplication").then((response) => {
+        axios.post("/studapplication").then((response) => {
             console.log(response.data);
             setStudents(response.data.result);
             setStudentList(
