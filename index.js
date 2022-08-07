@@ -21,7 +21,7 @@ app.use("/", agencyRoute);
 app.use("/", authRoute);
 app.use("/", studentRoute);
 app.use("/", agencyStudentRequestRoute);
-app.use("/matching", matchingRoute)
+app.use("/", matchingRoute)
 
 
 

@@ -158,7 +158,7 @@ function StudentDetailPage() {
                                         results.push.apply(results, data2);
                                         results.push.apply(results, data3);
                                         setMatches(results);
-                                        history.push("/students");
+                                        //history.push("/students");
                                     }}
                                     style={style.buttonStyle}>Start Matching
                                 </Button> :

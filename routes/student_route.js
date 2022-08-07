@@ -94,7 +94,7 @@ router.get("/studapplication/:id", async (req, res, next) => {
 router.post("/studapplication/email", async (req, res, next) => {
     console.log(req.body.email)
     db.query(
-        `Select * from sp_student_application where stud_email = ?`,[req.body.email],
+        `CALL fetch_stud_email(?)`,[req.body.email],
         (err, result) => {
             if (err) {
                 res.status(400).json({ success: false, error: err });

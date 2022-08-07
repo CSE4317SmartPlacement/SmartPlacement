@@ -6,25 +6,14 @@ const db = require("../db");
 router.post("/agency-student-requestadd", (req, res) => {
     const formValue = req.body;
     db.query(
-        `CALL fetch_agency_ein(?)`, [formValue.ein],
-        (err, result) => {
-            console.log(formValue.ein);
-            console.log(formValue.agency_id);
-            if (err) {
-                console.log(err);
-                res.status(400).json({ success: false, error: err });
-            } else {
-                console.log(result)
-                db.query(
-                    `CALL agency_student_request(?,?,?,?,?,?)`,
+        `CALL agency_student_request(?,?,?,?,?,?)`,
                     [
-                        result[0].agency_id,
                         formValue.ein,
                         formValue.number_of_vacancy,
                         formValue.graduation_level,
                         formValue.requirement,
                         JSON.stringify(formValue.immunization_record),
-                        JSON.stringify(formValue.other_reports),
+                        JSON.stringify(formValue.other_reports)
                     ],
                     (error, result) => {
                         if (error) {
@@ -37,12 +26,7 @@ router.post("/agency-student-requestadd", (req, res) => {
                     }
                 );
             }
-        }
     );
-
-
-
-});
 
 router.patch("/agency-student-requestapproval/:id", async (req, res, next) => {
     const Id = req.params.id;
