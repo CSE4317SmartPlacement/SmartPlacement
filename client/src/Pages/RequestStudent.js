@@ -47,9 +47,11 @@ const RequestStudent = () => {
       <NavBar></NavBar>
       <div
         class="container form-horizontal col-sm-5 w-30"
-        style={{ textAlign: "Left", color: "rgb(14, 189, 248)" }}
+        style={{ textAlign: "Left"}}
       >
-        <h3>Request Student</h3>
+        <br/>
+        <h3 style={{textAlign:"center"}}>Request Student</h3>
+        <br/>
 
         <div className="mb-3"></div>
 
@@ -261,6 +263,7 @@ const RequestStudent = () => {
             </button>
           </div>
         </center>
+        <br/>
       </div>
     </div>
   );

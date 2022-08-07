@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import axios from "axios";
+import "../Style/styles.css";
 
 const AgencyAccountRequest = () => {
   var states = [
@@ -191,7 +192,7 @@ const AgencyAccountRequest = () => {
         mailingAddress: mailingAddress,
       })
       .then((response) => {
-          window.location.href("/");
+          window.location.assign("/");
       });
   };
 
@@ -210,16 +211,17 @@ const AgencyAccountRequest = () => {
         </svg>
         Smart Placement
       </h1>
+
       <div className="mb-3"></div>
       <div
         class="container form-horizontal col-sm-5 w-30"
-        style={{ textAlign: "Left", color: "rgb(14, 189, 248)" }}
+        style={{ textAlign: "Left"}}
       >
-        <h3>Registration for Organization</h3>
+        <h3><b>Registration Your Agency</b></h3>
+        <br/>
         <div className="mb-3"></div>
         <div>
           <h5>About You</h5>
-          <p>...............................................................</p>
         </div>
         <div class="form-group row">
           <label class="col-sm-5 col-form-label">Title </label>
@@ -347,6 +349,7 @@ const AgencyAccountRequest = () => {
               />
             </div>
           </div>
+          <br/>
           <div className="mb-3"></div>
           <div className="mb-3"></div>
           <div color="#000000">
@@ -382,7 +385,7 @@ const AgencyAccountRequest = () => {
                     : formValue.agency_type}
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu className="agencyType">
                   {agencyTypes.map((item) => {
                     return (
                       <Dropdown.Item
@@ -443,7 +446,7 @@ const AgencyAccountRequest = () => {
           <div className="mb-3"></div>
           <div class="form-group row">
             <label for="site" class="col-sm-5 col-form-label">
-              Select disciplines related to your organization
+              Select Graduation Level
             </label>
             <div class="col-sm-5">
               <div class="form-group row col-sm-15 ">
@@ -462,7 +465,6 @@ const AgencyAccountRequest = () => {
                               ...formValue,
                               graduation_level: contacts,
                             });
-                            console.log(formValue.graduation_level);
                           }}
                           className="form-check-input"
                         />
@@ -499,7 +501,7 @@ const AgencyAccountRequest = () => {
             </div>
           </div>
           <div className="mb-3"></div>
-
+            <br/>
           <div>
             <h5>Business Address</h5>
           </div>
@@ -574,13 +576,13 @@ const AgencyAccountRequest = () => {
             </label>
             <div class="col-sm-5">
               <Dropdown>
-                <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                <Dropdown.Toggle variant="primary" id="dropdown-basic" >
                   {businessAddress.state == null
                     ? "State"
                     : businessAddress.state}
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu className="stateMenu">
                   {states.map((item) => {
                     return (
                       <Dropdown.Item
@@ -643,7 +645,7 @@ const AgencyAccountRequest = () => {
             </div>
           </div> */}
           <div className="mb-3"></div>
-
+          <br/>
           <div className="row">
             <h5>Mailing Address</h5>
 
@@ -745,7 +747,7 @@ const AgencyAccountRequest = () => {
                     : mailingAddress.state}
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu className="stateMenu">
                   {states.map((item) => {
                     return (
                       <Dropdown.Item
@@ -859,7 +861,7 @@ const AgencyAccountRequest = () => {
             </div>
           </div>
         </form>
-
+        <br/>
         <div className="d-grid">
           <button
             onClick={onSubmit}

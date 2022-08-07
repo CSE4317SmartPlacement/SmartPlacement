@@ -8,6 +8,8 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 import NavBar from "../NavBar/AdminNavBar";
 import "../../Style/styles.css";
+// import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter';
+// import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 
 const VacancyRequestTable = () =>  {
    const history = useHistory();
@@ -15,6 +17,11 @@ const VacancyRequestTable = () =>  {
     useEffect(()=>{
       getData();
   },[]);
+  const selectOptions = {
+    0: 'approved',
+    1: 'pending',
+    2: 'reject'
+  };
     const getData = ()=>{
         Axios.post("/agency-student-request").then((response)=>{
             setData(response.data.result);
@@ -23,17 +30,30 @@ const VacancyRequestTable = () =>  {
 
         const columns=[
         {
-            dataField:"id",
-            text:"Id",
+            dataField:"agency_id",
+            text:"Agency Id",
             sort:true
         },
         {
+          dataField:"agency_name",
+          text:"Agency name",
+          sort:true
+        },
+        {
             dataField:"number_of_vacancy",
-            text:"vacancy"
+            text:"No. of Vacancy"
         },
         {
             dataField:"graduation_level",
-            text:"level"
+            text:"Graduation Level"
+        },
+        {
+          dataField:"approval",
+          text:"Status"
+          // formatter: cell => selectOptions[cell],
+          // filter: selectFilter({
+          //   options: selectOptions
+          // })
         },
         {
           dataField: "detail",
@@ -58,6 +78,7 @@ const VacancyRequestTable = () =>  {
                     data={data} 
                     columns={columns}                       
                     search
+                    
                     >
                         {
                           props => (
@@ -70,6 +91,7 @@ const VacancyRequestTable = () =>  {
                                 hover 
                                 condensed
                                 pagination={paginationFactory()}
+                                // filter={ filterFactory()} 
                               />
                             </div>
                           )

@@ -5,6 +5,7 @@ import { Dropdown } from "react-bootstrap";
 import NavBar from "./NavBar/StudentNavBar";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import "../Style/styles.css";
 const StudentApplication = () => {
   const history = useHistory();
   const hover = (e) => {
@@ -180,15 +181,15 @@ const StudentApplication = () => {
         <div className="mb-3"></div>
         <div
           class="container form-horizontal col-sm-5 w-30"
-          style={{ textAlign: "Left", color: "rgb(14, 189, 248)" }}
+          style={{ textAlign: "Left"}}
         >
+          <br/>
           <div className="mb-3"></div>
           <div>
-            <h3>Apply for Placement process</h3>
-            <p>
-              ...............................................................
-            </p>
+            <h3 style={{textAlign:"center"}}>Apply for Placement process</h3>
           </div>
+          <br/>
+          <br/>
           <div class="form-group row">
             <label class="col-sm-5 col-form-label">Title </label>
             <div class="col-sm-7">
@@ -348,7 +349,7 @@ const StudentApplication = () => {
                 />
               </div>
             </div>
-
+            <br/>
             <div className="mb-3"></div>
 
             <h5>Mailing Address</h5>
@@ -410,7 +411,7 @@ const StudentApplication = () => {
                       ? "State"
                       : formValue.stud_state}
                   </Dropdown.Toggle>
-                  <Dropdown.Menu>
+                  <Dropdown.Menu className="stateMenu">
                     {states.map((item) => {
                       return (
                         <Dropdown.Item

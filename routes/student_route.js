@@ -76,7 +76,7 @@ router.post("/studapplication", async (req, res, next) => {
 });
 
 //Fetch student applciation by id
-router.post("/studapplication/:id", async (req, res, next) => {
+router.get("/studapplication/:id", async (req, res, next) => {
     db.query(
         `CALL fetch_studapplications(?)`, [req.params.id],
         (err, result) => {
@@ -85,6 +85,20 @@ router.post("/studapplication/:id", async (req, res, next) => {
                 res.status(400).json({ success: false, error: err });
             } else {
                 console.log(result);
+                res.status(200).json({ success: true, result: result[0] });
+            }
+        }
+    );
+});
+
+router.post("/studapplication/email", async (req, res, next) => {
+    console.log(req.body.email)
+    db.query(
+        `Select * from sp_student_application where stud_email = ?`,[req.body.email],
+        (err, result) => {
+            if (err) {
+                res.status(400).json({ success: false, error: err });
+            } else {
                 res.status(200).json({ success: true, result: result[0] });
             }
         }

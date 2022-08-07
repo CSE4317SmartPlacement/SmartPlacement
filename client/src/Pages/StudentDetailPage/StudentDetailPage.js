@@ -4,34 +4,56 @@ import { Button, Card, Row, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import MyNavbar from "../NavBar/AdminNavBar";
 import TableRow from "../AgencyDetailPage/Components/TableRow";
-
 function StudentDetailPage() {
     const history = useHistory();
 
     const [student, setStudent] = useState(history.location.state.student)
+    const [matches, setMatches] = useState([])
+ 
+    const [isMatched, setIsmatched] = useState(false)
 
     var onApprove = async (e) => {
         await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": student.approval == "pending" || student.approval == "reject" ? "approved" : "matching" })
-        await fetchStudentById()
+        fetchStudentById();
+        history.push("/students");
     }
 
     var onReject = async (e) => {
         await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": student.approval == "reject" ? "pending" : "reject" })
-        await fetchStudentById()
+        fetchStudentById();
+        history.push("/students");
     }
 
     var onCancel = async (e) => {
         await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": "approved" })
-        fetchStudentById()
+        fetchStudentById();
+        history.push("/students");
     }
 
     var fetchStudentById = async () => {
         var response = await axios.post("/studapplication/" + student.stud_id)
-        setStudent(response.data.result[0])
+        setStudent(response.data.result)
+    }
+
+    var fetchMatchStatus = async() => {
+        var response = await axios.get("/matching/student/" + student.stud_id)
+        setIsmatched(response.data.result != null)
+        if(response.data.result != null) {
+           await fetchAgencyById(response.data.result.agency_id)
+        }
+    }
+
+    const [agency, setAgency] = useState("")
+
+    var fetchAgencyById = async (agencyId) => {
+        var response = await axios.post("/agency/" + agencyId)
+        setAgency(response.data.result)
+        
     }
 
     useEffect(() => {
         fetchStudentById()
+        fetchMatchStatus()
     }, [])
 
 
@@ -105,21 +127,38 @@ function StudentDetailPage() {
                                             fontWeight: "bold",
                                             color: student.approval == "pending" ? "blue" :
                                                 student.approval == "approved" || student.approval == "matching" ? "green" : "red",
-                                            fontSize: "25px"
+                                            fontSize: "20px"
                                         }}>
-                                        {student.approval.toUpperCase()}
+                                        {
+                                        isMatched ? <span>Already matched with <a className="text-primary" onClick={(e) => {
+                                            history.push("/agency-detail",{ agency})
+                                        }}>{agency.agency_name}</a>  </span>:
+                                        student.approval.toUpperCase()}
                                     </p>} />
                             </tbody>
                         </Table>
                     </Row>
-                    <div class="row justify-content-end" style={{ marginTop: "2%", marginBottom: "2%", marginRight: "3%" }}>
+                    
+                    {isMatched ? <></> :<div class="row justify-content-end" style={{ marginTop: "2%", marginBottom: "2%", marginRight: "3%" }}>
                         <div class="col-3" >
                             {student.approval == "matching" || student.approval == "approved" ?
                                 <Button className="btn btn-info"
-                                    onClick={async () => {
-                                        await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": "matching" })
-                                        await fetchStudentById()
-                                        history.push("/macthing")
+                                    onClick={ async () => {
+                                        await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": "matching" });
+                                        fetchStudentById();
+
+                                        var result = await axios.post("/matching", 
+                                        {agent_type_1: student.agent_type_one,
+                                            agent_type_2: student.agent_type_two,
+                                            agent_type_3: student.agent_type_three,
+                                        });
+                                        const {data1, data2, data3} = result.data;
+                                        var results = [];
+                                        results.push.apply(results, data1);
+                                        results.push.apply(results, data2);
+                                        results.push.apply(results, data3);
+                                        setMatches(results);
+                                        history.push("/students");
                                     }}
                                     style={style.buttonStyle}>Start Matching
                                 </Button> :
@@ -146,7 +185,7 @@ function StudentDetailPage() {
                                 </Button>}
 
                         </div>
-                    </div>
+                    </div>}
 
                     {student.approval == "matching" ?
 
@@ -155,6 +194,48 @@ function StudentDetailPage() {
                         </Row> : <></>
                     }
                 </Card>
+
+       {isMatched ? <></> : <Table striped bordered hover style={{ margin: "30px" }}>
+          <thead>
+            <tr>
+              <th style={{ textAlign: "center" }}>#Priority</th>
+              <th style={{ textAlign: "center" }}>Agency Name</th>
+              <th style={{ textAlign: "center" }}>Agency Type</th>
+              <th style={{ textAlign: "center" }}>Number Of Vacancy </th>
+              <th style={{ textAlign: "center" }}>Match</th>
+            </tr>
+          </thead>
+          <tbody>
+            {matches.map((item, index) => {
+              return (
+                <tr>
+                  <td style={{ textAlign: "center" }}>{index + 1}</td>
+                  <td style={{ textAlign: "center" }}>{item.agency_name}</td>
+                  <td style={{ textAlign: "center" }}>{item.agency_type}</td>
+                  <td style={{ textAlign: "center" }}>{item.number_of_vacancy}</td>
+                  <td style={{ textAlign: "center" }}>
+                    <button
+                      onClick={ async(e) => {
+                        // history.push("/agency-detail", { agency: item });
+                        await axios.post("/matching/insert",  { agency_id: item.agency_id, student_id: student.stud_id, form_id: item.id });
+                        setMatches([]);
+                        await fetchMatchStatus();
+                        await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": "matched" });
+                        await fetchStudentById();
+                        history.push("/students");
+                      }}
+                      className="btn btn-success"
+                    >
+                      Match
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>}
+
+                
             </div>
         </div >
     );

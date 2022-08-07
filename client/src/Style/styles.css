@@ -155,3 +155,13 @@ input[type="text"] > .mb-3 {
   cursor: pointer;
   color: blue;
 }
+
+.stateMenu {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.agencyType {
+  max-height: 300px;
+  overflow-y: scroll;
+}

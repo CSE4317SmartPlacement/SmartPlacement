@@ -34,7 +34,7 @@ const Login = () =>  {
         localStorage.setItem("isSubmitted", false);
         setErrorMessages({ name: "pass", message: errors.pass });
       } else{
-
+        localStorage.setItem("user", JSON.stringify(response.data))
         setIsSubmitted(true);
         localStorage.setItem("isSubmitted", true);
         switch(response.data[0].access_lvl){
