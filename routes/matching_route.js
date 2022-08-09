@@ -34,7 +34,7 @@ router.post("/matching", async (req, res, next) => {
         if (err) {
             console.log(err)
         } else {
-            console.log(result[0]);
+            //console.log(result[0]);
             var data = result[0].map(item => Object.assign({}, item))
 
             var data1 = data.filter(item => item.agency_type == agent_type_1)
@@ -54,7 +54,7 @@ router.post("/matching/insert",async (req, res, next) => {
         if (err) {
             console.log(err)
         } else {
-            res.json({result})
+            //res.json({result})
         }
     })
 })

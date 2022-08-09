@@ -33,7 +33,7 @@ router.post("/studapplicationadd", (req, res) => {
                     console.log(error);
                     res.status(400).json({ success: false, error });
                 } else {
-                    console.log(result);
+                    //console.log(result);
                     res.status(200).json({ success: true, result });
                 }
             }
@@ -53,7 +53,7 @@ router.patch("/studapplicationapproval/:id", async (req, res, next) => {
                 console.log(err);
                 res.status(400).json({ success: false, error: err });
             } else {
-                console.log(result);
+                //console.log(result);
                 res.status(200).json({ success: true, result: result[0] });
             }
         }
@@ -69,7 +69,7 @@ router.post("/studapplication", async (req, res, next) => {
             console.log(err);
             res.status(400).json({ success: false, error: err });
         } else {
-            console.log(result);
+            //console.log(result);
             res.status(200).json({ success: true, result: result[0] });
         }
     });
@@ -78,14 +78,15 @@ router.post("/studapplication", async (req, res, next) => {
 //Fetch student applciation by id
 router.post("/studapplication/:id", async (req, res, next) => {
     db.query(
-        `Select * from sp_student_application where stud_id = ${req.params.id}`,
+        `CALL fetch_studapplications(?)`, [req.params.id],
         (err, result) => {
             if (err) {
                 console.log(err);
                 res.status(400).json({ success: false, error: err });
             } else {
-                console.log(result);
-                res.status(200).json({ success: true, result: result[0] });
+                //console.log(req.params.id);
+                //console.log(result);
+                res.status(200).json({ success: true, result: result[0][0] });
             }
         }
     );

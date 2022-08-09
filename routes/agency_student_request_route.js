@@ -20,7 +20,7 @@ router.post("/agency-student-requestadd", (req, res) => {
                             console.log(error);
                             res.status(400).json({ success: false, error });
                         } else {
-                            console.log(result);
+                            //console.log(result);
                             res.status(200).json({ success: true, result });
                         }
                     }
@@ -40,7 +40,7 @@ router.patch("/agency-student-requestapproval/:id", async (req, res, next) => {
           console.log(err);
           res.status(400).json({ success: false, error: err });
         } else {
-          console.log(result);
+          //console.log(result);
           res.status(200).json({ success: true, result: result[0] });
         }
       }
@@ -56,7 +56,7 @@ router.post("/agency-student-request", async (req, res, next) => {
             console.log(err);
             res.status(400).json({ success: false, error: err });
         } else {
-            console.log(result);
+            //console.log(result);
             res.status(200).json({ success: true, result: result[0] });
         }
     });
@@ -71,7 +71,7 @@ router.get("/agency-student-request/:id", async (req, res, next) => {
                 console.log(err);
                 res.status(400).json({ success: false, error: err });
             } else {
-                console.log(result);
+                //console.log(result);
                 res.status(200).json({ success: true, result: result[0] });
             }
         }

@@ -36,7 +36,7 @@ router.post("/login", (req, res) => {
             }
             if (result.length > 0) {
                 res.send(result[0]);
-                console.log(result[0]);
+                //console.log(result[0]);
             } else {
                 res.send({ message: "Wrong username/ password" });
             }
@@ -57,7 +57,7 @@ router.post("/finduser", (req, res) => {
             }
             if (result.length > 0) {
                 res.send(result[0]);
-                console.log("anmol");
+                //console.log("anmol");
             } else {
                 res.send({ message: "Wrong username" });
             }

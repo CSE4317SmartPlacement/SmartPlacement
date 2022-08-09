@@ -64,7 +64,7 @@ router.patch("/agencyapproval/:id", async (req, res, next) => {
         console.log(err);
         res.status(400).json({ success: false, error: err });
       } else {
-        console.log(result);
+        //console.log(result);
         res.status(200).json({ success: true, result: result[0] });
       }
     }
@@ -79,7 +79,7 @@ router.post("/agency", async (req, res, next) => {
       console.log(err);
       res.status(400).json({ success: false, error: err });
     } else {
-      console.log(result);
+      //console.log(result);
       res.status(200).json({ success: true, result: result[0] });
     }
   });
@@ -89,14 +89,14 @@ router.post("/agency", async (req, res, next) => {
 router.post("/agency/:id", async (req, res, next) => {
   db.query(
     `CALL get_agency(?)`, [req.params.id],
-    // `Select * from sp_agency where agency_id = ${req.params.id}`,
+    //`Select * from sp_agency where agency_id = ${req.params.id}`,
     (err, result) => {
       if (err) {
         console.log(err);
         res.status(400).json({ success: false, error: err });
       } else {
-        console.log(result);
-        res.status(200).json({ success: true, result: result[0] });
+        console.log(result[0][0]);
+        res.status(200).json({ success: true, result: result[0][0] });
       }
     }
   );
