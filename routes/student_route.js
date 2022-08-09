@@ -76,9 +76,9 @@ router.post("/studapplication", async (req, res, next) => {
 });
 
 //Fetch student applciation by id
-router.get("/studapplication/:id", async (req, res, next) => {
+router.post("/studapplication/:id", async (req, res, next) => {
     db.query(
-        `CALL fetch_studapplications(?)`, [req.params.id],
+        `Select * from sp_student_application where stud_id = ${req.params.id}`,
         (err, result) => {
             if (err) {
                 console.log(err);

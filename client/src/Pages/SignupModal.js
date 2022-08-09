@@ -92,7 +92,7 @@ const SignupModal = (props) => {
             <option value="3">Administrator</option>
         </Form.Select>
         <div style={{color:"red"}}>
-          {!error?"":(!agencyError?"Email already exists":"You have not been approced")}
+          {!error?"":(!agencyError?"Email already exists":"You have not been approved")}
         </div>
         <br/>
         <div className="d-grid">

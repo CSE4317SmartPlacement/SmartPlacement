@@ -89,6 +89,7 @@ router.post("/agency", async (req, res, next) => {
 router.post("/agency/:id", async (req, res, next) => {
   db.query(
     `CALL get_agency(?)`, [req.params.id],
+    // `Select * from sp_agency where agency_id = ${req.params.id}`,
     (err, result) => {
       if (err) {
         console.log(err);

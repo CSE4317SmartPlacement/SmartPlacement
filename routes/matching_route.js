@@ -12,6 +12,24 @@ router.post("/matching", async (req, res, next) => {
     console.log(agent_type_2);
     console.log(agent_type_3);
 
+//     db.query(`SELECT a.id, a.number_of_vacancy, b.agency_id, b.agency_type, b.agency_name, b.ein 
+//     FROM sp_database.sp_agency_student_request a, sp_database.sp_agency b
+//     WHERE a.number_of_vacancy > 0 and b.agency_id = a.agency_id and (b.agency_type = ? 
+//     or b.agency_type = ? or b.agency_type = ?)` , [agent_type_1, agent_type_2, agent_type_3], (err, result) => {
+//         if (err) {
+//             console.log(err)
+//         } else {
+//             var data = result.map(item => Object.assign({}, item))
+
+//             var data1 = data.filter(item => item.agency_type == agent_type_1)
+//             var data2 = data.filter(item => item.agency_type == agent_type_2)
+//             var data3 = data.filter(item => item.agency_type == agent_type_3)
+// console.log(data1)
+//             res.json({data1, data2, data3})
+//         }
+//     })
+// })
+
     db.query(`CALL fetch_vacancy(?, ?, ?)` , [agent_type_1, agent_type_2, agent_type_3], (err, result) => {
         if (err) {
             console.log(err)

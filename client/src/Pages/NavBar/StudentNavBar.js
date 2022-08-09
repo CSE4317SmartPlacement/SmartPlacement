@@ -34,10 +34,10 @@ const StudentNavBar = () =>  {
                 <Nav className="ms-auto">
                     <Nav.Link href="/studenthomepage">Home</Nav.Link>
                     <Nav.Link href="/studentapplication">Student Application</Nav.Link>
-                    {/* <Nav.Link href="/AdminHomepage">Student-Info</Nav.Link>
-                    <Nav.Link href="/AdminHomepage">Contracts</Nav.Link>
+                    <Nav.Link href="/student-status">Status</Nav.Link>
+                    {/* <Nav.Link href="/AdminHomepage">Contracts</Nav.Link>
                     <Nav.Link href="/AdminHomepage">Timesheets</Nav.Link>
-                    <Nav.Link href="/AdminHomepage">Profile</Nav.Link> */}
+                    <Nav.Link href="/AdminHomepage">Profile</Nav.Link>  */}
                     <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{paddingRight: '150px'}}>
                     <NavDropdown.Item href="https://www.uta.edu/" target="_blank">UTA Homepage</NavDropdown.Item>
                     <NavDropdown.Item href="https://www.uta.edu/mymav/" target="_blank">MyMav</NavDropdown.Item>

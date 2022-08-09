@@ -29,11 +29,12 @@ const Login = () =>  {
       username:username, 
       password:password
     }).then((response)=>{
-      if(response.data.message){
+      if(response.data.length==0){
         setIsSubmitted(false);
         localStorage.setItem("isSubmitted", false);
         setErrorMessages({ name: "pass", message: errors.pass });
       } else{
+        console.log(response.data)
         localStorage.setItem("user", JSON.stringify(response.data))
         setIsSubmitted(true);
         localStorage.setItem("isSubmitted", true);

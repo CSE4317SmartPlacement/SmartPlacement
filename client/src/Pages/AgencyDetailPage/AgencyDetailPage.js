@@ -7,7 +7,7 @@ import TableRow from "./Components/TableRow";
 
 function AgencyDetailPage() {
   const history = useHistory();
-  const agency = history.location.state.agency;
+  const agency = history.location.state.data;
 
   var onApprove = (e) => {
 

@@ -7,20 +7,22 @@ import TableRow from "../AgencyDetailPage/Components/TableRow";
 function StudentDetailPage() {
     const history = useHistory();
 
-    const [student, setStudent] = useState(history.location.state.student)
+    const val = history.location.state.data;
+    const [student, setStudent]=useState(val);
+    console.log(student);
     const [matches, setMatches] = useState([])
  
     const [isMatched, setIsmatched] = useState(false)
 
     var onApprove = async (e) => {
         await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": student.approval == "pending" || student.approval == "reject" ? "approved" : "matching" })
-        fetchStudentById();
+        await fetchStudentById();
         history.push("/students");
     }
 
     var onReject = async (e) => {
         await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": student.approval == "reject" ? "pending" : "reject" })
-        fetchStudentById();
+        await fetchStudentById();
         history.push("/students");
     }
 
@@ -31,24 +33,25 @@ function StudentDetailPage() {
     }
 
     var fetchStudentById = async () => {
-        var response = await axios.post("/studapplication/" + student.stud_id)
+        var response =  await axios.post("/studapplication/" + student.stud_id)
         setStudent(response.data.result)
     }
 
     var fetchMatchStatus = async() => {
-        var response = await axios.get("/matching/student/" + student.stud_id)
-        setIsmatched(response.data.result != null)
-        if(response.data.result != null) {
-           await fetchAgencyById(response.data.result.agency_id)
+        var response = await axios.post("/matching/student/" + student.stud_id);
+        console.log(response.data.result)
+        setIsmatched(response.data.result.length>0)
+        console.log(response.data.result)
+        if(response.data.result.length>0) {
+           await fetchAgencyById(response.data.result[0].agency_id)
         }
     }
 
     const [agency, setAgency] = useState("")
 
     var fetchAgencyById = async (agencyId) => {
-        var response = await axios.post("/agency/" + agencyId)
+        var response = await axios.post("/agency/" + agencyId);
         setAgency(response.data.result)
-        
     }
 
     useEffect(() => {
@@ -98,13 +101,13 @@ function StudentDetailPage() {
                                     </a>
                                 } />
 
-                                <TableRow title="Preferred Contacts"
+                                {/* <TableRow title="Preferred Contacts"
                                     value={<div>
                                         {JSON.parse(student.preferred_contacts).map((item) => {
                                             if (item.checked) {
                                                 return <p>{item.title}</p>
                                             }
-                                        })}</div>} />
+                                        })}</div>} /> */}
 
 
                             </tbody>
@@ -131,9 +134,9 @@ function StudentDetailPage() {
                                         }}>
                                         {
                                         isMatched ? <span>Already matched with <a className="text-primary" onClick={(e) => {
-                                            history.push("/agency-detail",{ agency})
-                                        }}>{agency.agency_name}</a>  </span>:
-                                        student.approval.toUpperCase()}
+                                            history.push("/agency-detail",{data: agency})
+                                        }}>{agency.agency_name}</a></span>:
+                                        student.approval}
                                     </p>} />
                             </tbody>
                         </Table>
@@ -145,7 +148,7 @@ function StudentDetailPage() {
                                 <Button className="btn btn-info"
                                     onClick={ async () => {
                                         await axios.patch("/studapplicationapproval/" + student.stud_id, { "status": "matching" });
-                                        fetchStudentById();
+                                        await fetchStudentById();
 
                                         var result = await axios.post("/matching", 
                                         {agent_type_1: student.agent_type_one,

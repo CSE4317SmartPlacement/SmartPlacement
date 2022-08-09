@@ -17,8 +17,7 @@ router.post("/register", (req, res) => {
             if (err) {
                 res.send({ err: err });
             } else {
-                console.log(result);
-                res.send({ message: result[0] });
+                res.send(...result[0]);
             }
         }
     );
@@ -37,6 +36,7 @@ router.post("/login", (req, res) => {
             }
             if (result.length > 0) {
                 res.send(result[0]);
+                console.log(result[0]);
             } else {
                 res.send({ message: "Wrong username/ password" });
             }

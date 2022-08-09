@@ -19,15 +19,13 @@ function StudentStatusPage() {
         setAgency(response.data.result)
     }
 
-    var fetchMatchStatus = async () => {
-        var email = JSON.parse(localStorage.getItem("user")).username
-        var student = await fetchStudentByEmail(email)
-        var response = await axios.post("/matching/student/" + student.stud_id)
-        setIsmatched(response.data.result != null)
-        if (response.data.result != null) {
-            await fetchRequirements(student.stud_id)
-
-            await fetchAgencyById(response.data.result.agency_id)
+    var fetchMatchStatus = async() => {
+        var response = await axios.post("/matching/student/" + student.stud_id);
+        console.log(response.data.result)
+        setIsmatched(response.data.result.length>0)
+        console.log(response.data.result)
+        if(response.data.result.length>0) {
+           await fetchAgencyById(response.data.result[0].agency_id)
         }
     }
 
@@ -36,6 +34,7 @@ function StudentStatusPage() {
         console.log(response.data.result)
         setRequirements(response.data.result)
     }
+
 
     useEffect(() => {
         fetchMatchStatus()
