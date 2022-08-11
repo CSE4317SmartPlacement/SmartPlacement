@@ -97,7 +97,7 @@ router.post("/agency/:id", async (req, res, next) => {
 //Route for getting agency using email
 router.post("/agencyemail/:email", async (req, res, next) => {
   db.query(
-    `SELECT * FROM sp_agency WHERE email=?`, [req.params.email],
+    `CALL fetch_agency_email(?)`, [req.params.email],
     (err, result) => {
       if (err) {
         res.status(400).json({ success: false, error: err });

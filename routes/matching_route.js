@@ -63,8 +63,7 @@ router.post("/matching/requirements", (req, res, next) => {
 router.post("/matchingstudent/studentlist", (req, res, next) => {
     const email = req.body.email;
     db.query(
-      `select * from sp_student_application s, sp_agency a, placement p
-  where a.agency_id=p.agency_id and s.stud_id=p.student_id and a.email='${email}'`,
+      `CALL matching_studentlist(?)`, [email],
       (err, results) => {
         if (err) {
           console.log(err);
