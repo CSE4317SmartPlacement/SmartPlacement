@@ -11,7 +11,6 @@ const VacancyRequest = () =>  {
 
         Axios.patch("/agency-student-requestapproval/" + data.id, { "status": data.approval == "approved" ? "pending" : "approved" })
           .then((response) => {
-            console.log(response);
             history.push("/vacancyrequesttable");
           })
       }
@@ -19,7 +18,6 @@ const VacancyRequest = () =>  {
       var onReject = (e) => {
         Axios.patch("/agency-student-requestapproval/" + data.id, { "status": data.approval == "reject" ? "pending" : "reject" })
           .then((response) => {
-            console.log(response);
             history.push("/vacancyrequesttable");
           })
       }

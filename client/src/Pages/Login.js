@@ -17,8 +17,7 @@ const Login = () =>  {
     const [loginStatus, setLoginStatus] = useState("");
     const [username, setUserName] = useState([]);
     const [password, setPassword] = useState([]);
-    // let history = useHistory();
-    // User Login info
+
     const errors = {
       pass: "Invalid username or password"
     };
@@ -34,8 +33,8 @@ const Login = () =>  {
         localStorage.setItem("isSubmitted", false);
         setErrorMessages({ name: "pass", message: errors.pass });
       } else{
-        console.log(response.data)
         localStorage.setItem("user", JSON.stringify(response.data))
+        localStorage.setItem("access", response.data[0].access_lvl)
         setIsSubmitted(true);
         localStorage.setItem("isSubmitted", true);
         switch(response.data[0].access_lvl){

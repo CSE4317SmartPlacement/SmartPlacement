@@ -3,15 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Row, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import MyNavbar from "../NavBar/AdminNavBar";
-import TableRow from "../AgencyDetailPage/Components/TableRow";
+import TableRow from "../TableRow";
+
 function StudentDetailPage() {
     const history = useHistory();
-
     const val = history.location.state.data;
     const [student, setStudent]=useState(val);
-    console.log(student);
     const [matches, setMatches] = useState([])
- 
     const [isMatched, setIsmatched] = useState(false)
 
     var onApprove = async (e) => {
@@ -39,9 +37,7 @@ function StudentDetailPage() {
 
     var fetchMatchStatus = async() => {
         var response = await axios.post("/matching/student/" + student.stud_id);
-        console.log(response.data.result)
         setIsmatched(response.data.result.length>0)
-        console.log(response.data.result)
         if(response.data.result.length>0) {
            await fetchAgencyById(response.data.result[0].agency_id)
         }
@@ -59,20 +55,12 @@ function StudentDetailPage() {
         fetchMatchStatus()
     }, [])
 
-
     return (
         <div>
             <MyNavbar />
             <div className="container">
                 <Card style={{ margin: "50px 0px" }}>
                     <Row className="justify-content-center mt-5 mb-5">
-                        {/* <div style={{
-              backgroundColor: "#2C5EBA",
-              width: "200px",
-              height: "200px",
-              borderRadius: "50%",
-              textAlign: "center"
-            }} > */}
                         <p style={{
                             textAlign: "center",
                             fontSize: "40px",
@@ -80,7 +68,6 @@ function StudentDetailPage() {
                         }}>
                             Student Application Request
                         </p>
-                        {/* </div> */}
                     </Row>
                     <Row className="justify-content-center" style={{ margin: "2% 3%" }}>
                         <h4 className="mb-3">Student Information</h4>
@@ -92,38 +79,21 @@ function StudentDetailPage() {
                                 <TableRow title="Email" value={student.stud_email} />
                                 <TableRow title="Home Phone" value={student.stud_homephone} />
                                 <TableRow title="Mobile Phone" value={student.stud_mobilephone} />
-
                                 <TableRow title="Address" value={
-
                                     <a href={"https://maps.google.com/?q=" + student.stud_street + " " + student.stud_unit + ", " +
                                         student.stud_city + ", " + student.stud_state + ", " + student.stud_zip}>
                                         {`${student.stud_street} ${student.stud_unit}, ${student.stud_city} ${student.stud_state} ${student.stud_zip} ${student.stud_country}`}
                                     </a>
                                 } />
-
-                                {/* <TableRow title="Preferred Contacts"
-                                    value={<div>
-                                        {JSON.parse(student.preferred_contacts).map((item) => {
-                                            if (item.checked) {
-                                                return <p>{item.title}</p>
-                                            }
-                                        })}</div>} /> */}
-
-
                             </tbody>
                         </Table>
                     </Row>
-
                     <Row className="justify-content-center" style={{ margin: "2% 3%" }}>
                         <h4 className="mb-3">Application Information</h4>
                         <Table hover bordered >
                             <tbody>
-                                {/* <TableRow striped title="Request Date" value={new Date(student.request_date).toDateString() + " at " + new Date(student.request_date).toLocaleTimeString()} /> */}
-
                                 <TableRow title="Preferred Agency Type" value={student.agent_type_one + ", " + student.agent_type_two + ", " + student.agent_type_three} />
-
                                 <TableRow title="Degree Level" value={<p style={{ fontWeight: "bold", fontSize: "20px" }}>{student.registered_level} </p>} />
-
                                 <TableRow title="Application Status"
                                     value={<p
                                         style={{
@@ -161,7 +131,6 @@ function StudentDetailPage() {
                                         results.push.apply(results, data2);
                                         results.push.apply(results, data3);
                                         setMatches(results);
-                                        //history.push("/students");
                                     }}
                                     style={style.buttonStyle}>Start Matching
                                 </Button> :
@@ -186,18 +155,13 @@ function StudentDetailPage() {
                                             "Cancel Reject" :
                                             "Reject"}
                                 </Button>}
-
                         </div>
                     </div>}
-
                     {student.approval == "matching" ?
-
                         <Row className="justify-content-center" style={{ margin: "2% 3%" }}>
-
                         </Row> : <></>
                     }
                 </Card>
-
        {isMatched ? <></> : <Table striped bordered hover style={{ margin: "30px" }}>
           <thead>
             <tr>
@@ -219,7 +183,6 @@ function StudentDetailPage() {
                   <td style={{ textAlign: "center" }}>
                     <button
                       onClick={ async(e) => {
-                        // history.push("/agency-detail", { agency: item });
                         await axios.post("/matching/insert",  { agency_id: item.agency_id, student_id: student.stud_id, form_id: item.id });
                         setMatches([]);
                         await fetchMatchStatus();
@@ -237,10 +200,8 @@ function StudentDetailPage() {
             })}
           </tbody>
         </Table>}
-
-                
-            </div>
-        </div >
+        </div>
+    </div >
     );
 }
 

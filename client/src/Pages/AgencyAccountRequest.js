@@ -174,16 +174,6 @@ const AgencyAccountRequest = () => {
 
   const [businessAddress, setBusinessAddress] = useState({});
   const [mailingAddress, setMailingAddress] = useState({});
-
-  // const onSubmit = async () => {
-  //   var res = await axios.post("/agency", {
-  //     formValue: formValue,
-  //     businessAddress: businessAddress,
-  //     mailingAddress: mailingAddress,
-  //   });
-  //   alert(formValue.title);
-  // };
-
   const onSubmit = () => {
     axios
       .post("/agencyadd", {
@@ -377,7 +367,6 @@ const AgencyAccountRequest = () => {
               Agency type
             </label>
             <div class="col-sm-5">
-              {/* agency_type */}
               <Dropdown>
                 <Dropdown.Toggle variant="primary" id="dropdown-basic">
                   {formValue.agency_type == null
@@ -402,13 +391,6 @@ const AgencyAccountRequest = () => {
                   })}
                 </Dropdown.Menu>
               </Dropdown>
-              {/* <input
-                type="text"
-                class="form-control"
-                id="Atype"
-                placeholder="Agency type"
-                name="Atype"
-              /> */}
             </div>
           </div>
           <div className="mb-3"></div>
@@ -474,14 +456,6 @@ const AgencyAccountRequest = () => {
                   );
                 })}
               </div>
-              {/* <input
-                type="text"
-                class="form-control"
-                id="site"
-                placeholder="Select disciplines related to your organization drop"
-                name="graduation_level"
-                onChange={onFormChange}
-              /> */}
             </div>
           </div>
           <div className="mb-3"></div>
@@ -623,27 +597,6 @@ const AgencyAccountRequest = () => {
             </div>
           </div>
           <div className="mb-3"></div>
-          {/* <div class="form-group row">
-            <label for="bcountry" class="col-sm-5 col-form-label">
-              Country
-            </label>
-            <div class="col-sm-5">
-              <input
-                type="text"
-                onChange={(e) => {
-                  setBusinessAddress({
-                    ...businessAddress,
-                    [e.target.name]: e.target.value,
-                  });
-                  console.log(businessAddress);
-                }}
-                class="form-control"
-                id="bcountry"
-                placeholder="Country"
-                name="country"
-              />
-            </div>
-          </div> */}
           <div className="mb-3"></div>
           <br/>
           <div className="row">
@@ -764,20 +717,6 @@ const AgencyAccountRequest = () => {
                   })}
                 </Dropdown.Menu>
               </Dropdown>
-              {/* <input
-                type="text"
-                value={mailingAddress.state == null ? "" : mailingAddress.state}
-                onChange={(e) => {
-                  setMailingAddress({
-                    ...mailingAddress,
-                    [e.target.name]: e.target.value,
-                  });
-                }}
-                class="form-control"
-                id="mstate"
-                placeholder="State"
-                name="state"
-              /> */}
             </div>
           </div>
           <div className="mb-3"></div>
@@ -803,30 +742,6 @@ const AgencyAccountRequest = () => {
             </div>
           </div>
           <div className="mb-3"></div>
-          {/* <div class="form-group row">
-            <label for="mcountry" class="col-sm-5 col-form-label">
-              Country
-            </label>
-            <div class="col-sm-5">
-              <input
-                type="text"
-                value={
-                  mailingAddress.country == null ? "" : mailingAddress.country
-                }
-                onChange={(e) => {
-                  setMailingAddress({
-                    ...mailingAddress,
-                    [e.target.name]: e.target.value,
-                  });
-                  console.log(mailingAddress);
-                }}
-                class="form-control"
-                id="mcountry"
-                placeholder="Country"
-                name="country"
-              />
-            </div>
-          </div> */}
           <div class="form-group row">
             <label for="fname" class="col-sm-5 col-form-label">
               Prefered Contact

@@ -1,28 +1,20 @@
 import axios from "axios";
-import React from "react";
-import { Button, Card, Row, Table } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import MyNavbar from "../NavBar/AdminNavBar";
+import React, { useEffect, useState } from "react";
+import { Card, Row, Table } from "react-bootstrap";
+import MyNavbar from "../NavBar/AgencyNavBar";
 import TableRow from "../TableRow";
+const AgencyStatus = ()=>{
+    const [agency, setAgency] = useState({});
+    
+    const getAgencyByEmail = async ()=>{
+      const agencyEmail = JSON.parse(localStorage.getItem("user")[0].email);
+      const result = await axios.post("/agencyemail/"+agencyEmail);
+      setAgency(result);
+    }
 
-function AgencyDetailPage() {
-  const history = useHistory();
-  const agency = history.location.state.data;
-
-  var onApprove = (e) => {
-
-    axios.patch("/agencyapproval/" + agency.agency_id, { "status": agency.approval == "approved" ? "pending" : "approved" })
-      .then((response) => {
-        history.push("/agencies")
-      })
-  }
-
-  var onReject = (e) => {
-    axios.patch("/agencyapproval/" + agency.agency_id, { "status": agency.approval == "reject" ? "pending" : "reject" })
-      .then((response) => {
-        history.push("/agencies")
-      })
-  }
+    useEffect(() => {
+        getAgencyByEmail();
+    }, [])
 
   return (
     <div>
@@ -108,18 +100,6 @@ function AgencyDetailPage() {
               </tbody>
             </Table>
           </Row>
-          <div class="row justify-content-end" style={{ marginTop: "2%", marginBottom: "2%", marginRight: "3%" }}>
-            <div class="col-3" >
-              <Button className={agency.approval == "approved" ? "btn btn-success" : "btn btn-primary"}
-                onClick={onApprove}
-                style={style.buttonStyle}>{agency.approval == "approved" ? "Send To Pending" : "Approve"}</Button>
-            </div>
-            <div class="col-3">
-              <Button className={agency.approval == "reject" ? "btn btn-success" : "btn btn-danger"}
-                onClick={onReject}
-                style={style.buttonStyle}>{agency.approval == "reject" ? "Send To Pending" : "Reject"}</Button>
-            </div>
-          </div>
         </Card>
       </div>
     </div >
@@ -135,4 +115,4 @@ const style = {
     borderRadius: "50px"
   }
 }
-export default AgencyDetailPage;
+export default AgencyStatus;

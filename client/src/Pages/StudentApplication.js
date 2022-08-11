@@ -428,13 +428,6 @@ const StudentApplication = () => {
                     })}
                   </Dropdown.Menu>
                 </Dropdown>
-                {/* <input
-                  type="text"
-                  class="form-control"
-                  id="Sstate"
-                  placeholder="State"
-                  name="Sstate"
-                /> */}
               </div>
             </div>
             <div className="mb-3"></div>
@@ -603,7 +596,6 @@ const StudentApplication = () => {
                                 ...formValue,
                                 preferred_contacts: contacts,
                               });
-                              console.log(formValue);
                             }}
                             className="form-check-input"
                           />

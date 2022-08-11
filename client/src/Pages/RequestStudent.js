@@ -38,7 +38,6 @@ const RequestStudent = () => {
   const requeststd = () => {
     axios.post("/agency-student-requestadd", formValue).then((response) => {
       history.push("/agencyhomepage");
-      console.log(response);
     });
   };
   var graduation_level = ["BSW", "MSW", "Any"];
@@ -170,26 +169,6 @@ const RequestStudent = () => {
                     </div>
                   );
                 })}
-                {/* <label>
-                  <input type="checkbox" name="prefered contact type" />
-                  Measles, Mumps, Rubella (MMR)
-                </label>
-                <label>
-                  <input type="checkbox" name="prefered contact type" />
-                  Varicella (Chickenpox)
-                </label>
-                <label>
-                  <input type="checkbox" name="prefered contact type" />
-                  Tetanus, diphtheria, acellular pertussis (Tdap)
-                </label>
-                <label>
-                  <input type="checkbox" name="prefered contact type" />
-                  Influenza
-                </label>
-                <label>
-                  <input type="checkbox" name="prefered contact type" /> TB Skin
-                  Test (TST)
-                </label> */}
               </div>
             </div>
           </div>
@@ -225,24 +204,6 @@ const RequestStudent = () => {
                     </div>
                   );
                 })}
-                {/* <label>
-                  <input type="checkbox" name="prefered contact type" /> Clear
-                  Background Test
-                </label>
-
-                <label>
-                  <input type="checkbox" name="prefered contact type" /> Sex
-                  offender Registery
-                </label>
-
-                <label>
-                  <input type="checkbox" name="prefered contact type" />
-                  Negative Drug Test
-                </label>
-
-                <label>
-                  <input type="checkbox" name="prefered contact type" /> TB Test
-                </label> */}
               </div>
             </div>
           </div>

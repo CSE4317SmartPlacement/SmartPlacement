@@ -30,13 +30,16 @@ const SignupModal = (props) => {
               accessLevel:accessLevel
             }).then((response)=>{
                 if(response.data.err || response.data.error){
-                    if(response.data.error){
-                        setAgencyError(true);
-                    }
+                    setError(true);
+                    setAgencyError(false);
+                }
+                else if(response.data.add_return != "" || response.data.add_return != null){
+                    setAgencyError(true);
                     setError(true);
                 }
                 else{
                     setError(false);
+                    setAgencyError(false);
                     window.location.href='/';
                 }
             })

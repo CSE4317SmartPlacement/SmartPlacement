@@ -1,41 +1,102 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-import NavBar from './NavBar/AgencyNavBar';
+import NavBar from "./NavBar/AgencyNavBar";
+import Carousel from "react-bootstrap/Carousel";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useHistory } from "react-router-dom";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, {
+  Search,
+} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 
 const AgencyHomepage = () => {
+  const history = useHistory();
+  const [data, setData] = useState([]);
+
+  const getData = () => {
+    const user = localStorage.getItem("user");
+    console.log(JSON.parse(user));
+    const email = JSON.parse(user).username;
+    axios.post("/matchingstudent/studentlist", { email }).then((response) => {
+      console.log(response.data);
+      setData(response.data.data);
+    });
+  };
+
+  const columns = [
+    {
+      dataField: "stud_fname",
+      text: "First Name",
+      sort: true,
+    },
+    {
+      dataField: "stud_lname",
+      text: "Last Name",
+      sort: true,
+    },
+    {
+      dataField: "registered_level",
+      text: "Registered Level",
+    },
+    {
+      dataField: "stud_email",
+      text: "Email",
+    },
+    {
+      dataField: "detail",
+      text: "Detail",
+      isDummyField: true,
+      formatter: (cell, row, rowIndex) => (
+        <Button
+          variant="primary"
+          onClick={(e) => {
+            history.push("/student-detail", {
+              data: data[rowIndex],
+            });
+          }}
+        >
+          Detail
+        </Button>
+      ),
+    },
+  ];
+
+  const { SearchBar } = Search;
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <NavBar></NavBar>
-      
-      <div className="container my-5" style={{textAlign: 'center', color: 'rgb(14, 189, 248)'}}>
-        <h1>Welcome to Agency Portal</h1>
-      </div>
-      <div className="row">
-        <div className="col-sm-6">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Required Tasks</h5>
-              <p className="card-text">Pending timecards approval for the students.</p>
-              <button type="button" className="btn btn-primary">
-                To Do <span className="badge bg-secondary">7</span>
-              </button>
-            </div>
-          </div>
+      <div className="studentRequestTable">
+        <div>
+          {" "}
+          <h1>List of Student For placement</h1>
         </div>
-        <div className="col-sm-6">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Pending Notifications</h5>
-              <p className="card-text">Review all of the pending notifications below.</p>
-              <button type="button" className="btn btn-primary">
-                Notifications <span className="badge bg-secondary">4</span>
-              </button>
+        <ToolkitProvider keyField="id" data={data} columns={columns} search>
+          {(props) => (
+            <div>
+              <SearchBar
+                {...props.searchProps}
+                style={{ borderColor: "grey" }}
+                srText=""
+              />
+              <hr />
+              <BootstrapTable
+                {...props.baseProps}
+                stripped
+                hover
+                condensed
+                pagination={paginationFactory()}
+              />
             </div>
-          </div>
-        </div>
+          )}
+        </ToolkitProvider>
       </div>
-  </div>   
-  )
-}
+    </div>
+  );
+};
 
-export default AgencyHomepage
+export default AgencyHomepage;

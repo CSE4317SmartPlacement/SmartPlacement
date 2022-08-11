@@ -15,7 +15,8 @@ import AgencyDetailPage from "./Pages/AgencyDetailPage/AgencyDetailPage";
 import StudentListPage from "./Pages/StudentListPage/StudentListPage";
 import studentDetailPage from "./Pages/StudentDetailPage/StudentDetailPage";
 import StudentStatusPage from "./Pages/StudentStatusPage/StudentStatusPage";
-
+import StudentAgencyDetail from "./Pages/AgencyStatusPage/StudentAgencyDetail";
+import AgencyStatus from "./Pages/AgencyStatusPage/AgencyStatus";
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
         <Route exact path="/agencies" component={AgencyListPage} />
         <Route exact path="/student-detail" component={studentDetailPage} />
         <Route exact path="/student-status" component={StudentStatusPage} />
+        <Route exact path="/agency-status" component={StudentAgencyDetail} />
+        <Route exact path="/agency-ownstatus" component={AgencyStatus} />
         <Route exact path="/students" component={StudentListPage} />
         <Route exact path="/studenthomepage" component = {StudentHomepage}/>
         <Route exact path="/studentapplication" component = {StudentApplication}/>
@@ -41,7 +44,5 @@ function App() {
       </Switch>
     </Router>
   )
-
 }
-
 export default App;

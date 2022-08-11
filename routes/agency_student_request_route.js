@@ -17,10 +17,8 @@ router.post("/agency-student-requestadd", (req, res) => {
                     ],
                     (error, result) => {
                         if (error) {
-                            console.log(error);
                             res.status(400).json({ success: false, error });
                         } else {
-                            //console.log(result);
                             res.status(200).json({ success: true, result });
                         }
                     }
@@ -28,6 +26,7 @@ router.post("/agency-student-requestadd", (req, res) => {
             }
     );
 
+//Route to get the vacancy approval
 router.patch("/agency-student-requestapproval/:id", async (req, res, next) => {
     const Id = req.params.id;
     const status = req.body.status;
@@ -37,10 +36,8 @@ router.patch("/agency-student-requestapproval/:id", async (req, res, next) => {
       [status, Id],
       (err, result) => {
         if (err) {
-          console.log(err);
           res.status(400).json({ success: false, error: err });
         } else {
-          //console.log(result);
           res.status(200).json({ success: true, result: result[0] });
         }
       }
@@ -53,10 +50,8 @@ const test = '%';
 router.post("/agency-student-request", async (req, res, next) => {
     db.query(`CALL fetch_agency_stud_request(?)`, [test], (err, result) => {
         if (err) {
-            console.log(err);
             res.status(400).json({ success: false, error: err });
         } else {
-            //console.log(result);
             res.status(200).json({ success: true, result: result[0] });
         }
     });
@@ -68,10 +63,8 @@ router.get("/agency-student-request/:id", async (req, res, next) => {
         `CALL fetch_agency_stud_request(?)`, [req.params.id],
         (err, result) => {
             if (err) {
-                console.log(err);
                 res.status(400).json({ success: false, error: err });
             } else {
-                //console.log(result);
                 res.status(200).json({ success: true, result: result[0] });
             }
         }

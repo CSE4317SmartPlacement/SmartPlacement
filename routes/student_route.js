@@ -30,17 +30,15 @@ router.post("/studapplicationadd", (req, res) => {
             ],
             (error, result) => {
                 if (error) {
-                    console.log(error);
                     res.status(400).json({ success: false, error });
                 } else {
-                    //console.log(result);
                     res.status(200).json({ success: true, result });
                 }
             }
         );
 });
 
-// $PATCH :
+//Route for setting student approval
 router.patch("/studapplicationapproval/:id", async (req, res, next) => {
     const studentId = req.params.id;
     const status = req.body.status;
@@ -50,10 +48,8 @@ router.patch("/studapplicationapproval/:id", async (req, res, next) => {
         [status, studentId],
         (err, result) => {
             if (err) {
-                console.log(err);
                 res.status(400).json({ success: false, error: err });
             } else {
-                //console.log(result);
                 res.status(200).json({ success: true, result: result[0] });
             }
         }
@@ -66,10 +62,8 @@ router.post("/studapplication", async (req, res, next) => {
     db.query(`CALL fetch_studapplications(?)`, [test], 
     (err, result) => {
         if (err) {
-            console.log(err);
             res.status(400).json({ success: false, error: err });
         } else {
-            //console.log(result);
             res.status(200).json({ success: true, result: result[0] });
         }
     });
@@ -81,17 +75,15 @@ router.post("/studapplication/:id", async (req, res, next) => {
         `CALL fetch_studapplications(?)`, [req.params.id],
         (err, result) => {
             if (err) {
-                console.log(err);
                 res.status(400).json({ success: false, error: err });
             } else {
-                console.log(req.params.id);
-                //console.log(result);
                 res.status(200).json({ success: true, result: result[0][0] });
             }
         }
     );
 });
 
+//Route to get the student information using email
 router.post("/studapplicationemail/:email", async (req, res, next) => {
     console.log('Inside studapplication route');
     console.log(req.params.email);
@@ -99,21 +91,12 @@ router.post("/studapplicationemail/:email", async (req, res, next) => {
         `CALL fetch_stud_email(?)`,[req.params.email],
         (err, result) => {
             if (err) {
-                console.log(req.params.email);
-                console.log(result[0]);
                 res.status(400).json({ success: false, error: err });
             } else {
-                console.log(req.params.email);
-                console.log(result[0]);
-                res.status(200).json({ success: true, result: result[0] });
+                res.send({result:result[0]});
             }
         }
     );
 });
-
-
-
-// Matching Student with Agency
-
 
 module.exports = router;

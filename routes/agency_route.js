@@ -1,14 +1,14 @@
 const toSQLDate = require("js-date-to-sql-datetime");
 const router = require("express").Router();
 
+
 const db = require("../db");
 
-//
+//Route for adding agencies
 router.post("/agencyadd", (req, res) => {
   var formValue = req.body.formValue;
   var mailingAddress = req.body.mailingAddress;
   var businessAddress = req.body.businessAddress;
-
   db.query(
     `CALL add_agency(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
     [
@@ -42,7 +42,6 @@ router.post("/agencyadd", (req, res) => {
     ],
     (err, result) => {
       if (err) {
-        console.log(err);
         res.send({ err: "failed" });
       } else {
         res.send({ message: "successful" });
@@ -51,7 +50,7 @@ router.post("/agencyadd", (req, res) => {
   );
 });
 
-// $PATCH :
+//Route for changing agency approval
 router.patch("/agencyapproval/:id", async (req, res, next) => {
   const agencyId = req.params.id;
   const status = req.body.status;
@@ -61,10 +60,8 @@ router.patch("/agencyapproval/:id", async (req, res, next) => {
     [status, agencyId],
     (err, result) => {
       if (err) {
-        console.log(err);
         res.status(400).json({ success: false, error: err });
       } else {
-        //console.log(result);
         res.status(200).json({ success: true, result: result[0] });
       }
     }
@@ -72,30 +69,39 @@ router.patch("/agencyapproval/:id", async (req, res, next) => {
 });
 
 const test = '%';
-//Fetch all agency
+//Route for getting all the agencies
 router.post("/agency", async (req, res, next) => {
   db.query(`CALL get_agency(?)`, [test], (err, result) => {
     if (err) {
-      console.log(err);
       res.status(400).json({ success: false, error: err });
     } else {
-      //console.log(result);
       res.status(200).json({ success: true, result: result[0] });
     }
   });
 });
 
-//Fetch agency by id
+//Route for getting agency using id
 router.post("/agency/:id", async (req, res, next) => {
   db.query(
     `CALL get_agency(?)`, [req.params.id],
-    //`Select * from sp_agency where agency_id = ${req.params.id}`,
     (err, result) => {
       if (err) {
-        console.log(err);
         res.status(400).json({ success: false, error: err });
       } else {
-        //console.log(result[0][0]);
+        res.status(200).json({ success: true, result: result[0][0] });
+      }
+    }
+  );
+});
+
+//Route for getting agency using email
+router.post("/agencyemail/:email", async (req, res, next) => {
+  db.query(
+    `SELECT * FROM sp_agency WHERE email=?`, [req.params.email],
+    (err, result) => {
+      if (err) {
+        res.status(400).json({ success: false, error: err });
+      } else {
         res.status(200).json({ success: true, result: result[0][0] });
       }
     }

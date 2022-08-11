@@ -3,6 +3,7 @@ const router = require("express").Router();
 
 const db = require("../db");
 
+//Route for registering
 router.post("/register", (req, res) => {
     const username = req.body.username;
     const user_password = req.body.password;
@@ -23,6 +24,7 @@ router.post("/register", (req, res) => {
     );
 });
 
+//Route for login
 router.post("/login", (req, res) => {
     const username = req.body.username;
     const user_password = req.body.password;
@@ -36,7 +38,6 @@ router.post("/login", (req, res) => {
             }
             if (result.length > 0) {
                 res.send(result[0]);
-                //console.log(result[0]);
             } else {
                 res.send({ message: "Wrong username/ password" });
             }
@@ -44,6 +45,7 @@ router.post("/login", (req, res) => {
     );
 });
 
+//Route for finding user using username
 router.post("/finduser", (req, res) => {
     const username = req.body.username;
     console.log(username);
@@ -57,7 +59,6 @@ router.post("/finduser", (req, res) => {
             }
             if (result.length > 0) {
                 res.send(result[0]);
-                //console.log("anmol");
             } else {
                 res.send({ message: "Wrong username" });
             }
@@ -65,6 +66,7 @@ router.post("/finduser", (req, res) => {
     );
 });
 
+//Route for changing password
 router.post("/changePassword", (req, res) => {
     const username = req.body.username;
     const user_password = req.body.password;
