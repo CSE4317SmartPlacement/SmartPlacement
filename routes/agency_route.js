@@ -95,7 +95,7 @@ router.post("/agency/:id", async (req, res, next) => {
         console.log(err);
         res.status(400).json({ success: false, error: err });
       } else {
-        console.log(result[0][0]);
+        //console.log(result[0][0]);
         res.status(200).json({ success: true, result: result[0][0] });
       }
     }

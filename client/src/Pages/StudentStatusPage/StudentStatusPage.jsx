@@ -9,9 +9,11 @@ function StudentStatusPage() {
     const [agency, setAgency] = useState("")
     const [requirements, setRequirements] = useState({})
 
-    var fetchStudentByEmail = async (email) => {
-        var response = await axios.post("/studapplication/email", { email: email })
-        return response.data.result
+    var fetchStudentByEmail = async (uname) => {
+        //console.log('Inside fetchStudent function');
+        //console.log(uname);
+        var response = await axios.post("/studapplicationemail/" + uname);
+        return response.data.result[0]
     }
 
     var fetchAgencyById = async (agencyId) => {
@@ -20,10 +22,14 @@ function StudentStatusPage() {
     }
 
     var fetchMatchStatus = async() => {
-        var response = await axios.post("/matching/student/" + student.stud_id);
-        console.log(response.data.result)
+        var uname = JSON.parse(localStorage.getItem("user"))[0].username;
+        //console.log(ptest);
+        var student = fetchStudentByEmail(uname);
+        console.log(student);
+        var response = await axios.post("/matching/student/" + student[0].stud_id);
+        //console.log(response.data.result)
         setIsmatched(response.data.result.length>0)
-        console.log(response.data.result)
+        //console.log(response.data.result)
         if(response.data.result.length>0) {
            await fetchAgencyById(response.data.result[0].agency_id)
         }
@@ -31,7 +37,7 @@ function StudentStatusPage() {
 
     var fetchRequirements = async (studentId) => {
         var response = await axios.post("/matching/requirements", { studentId: studentId })
-        console.log(response.data.result)
+        //console.log(response.data.result)
         setRequirements(response.data.result)
     }
 

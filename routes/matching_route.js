@@ -8,9 +8,9 @@ const db = require("../db");
 
 router.post("/matching", async (req, res, next) => {
     const { agent_type_1, agent_type_2, agent_type_3 } = req.body
-    console.log(agent_type_1);
-    console.log(agent_type_2);
-    console.log(agent_type_3);
+    //console.log(agent_type_1);
+    //console.log(agent_type_2);
+    //console.log(agent_type_3);
 
 //     db.query(`SELECT a.id, a.number_of_vacancy, b.agency_id, b.agency_type, b.agency_name, b.ein 
 //     FROM sp_database.sp_agency_student_request a, sp_database.sp_agency b
@@ -40,7 +40,7 @@ router.post("/matching", async (req, res, next) => {
             var data1 = data.filter(item => item.agency_type == agent_type_1)
             var data2 = data.filter(item => item.agency_type == agent_type_2)
             var data3 = data.filter(item => item.agency_type == agent_type_3)
-console.log(data1)
+//console.log(data1)
             res.json({data1, data2, data3})
         }
     })
@@ -54,7 +54,7 @@ router.post("/matching/insert",async (req, res, next) => {
         if (err) {
             console.log(err)
         } else {
-            //res.json({result})
+            res.json({result})
         }
     })
 })
@@ -76,6 +76,7 @@ router.post("/matching/student/:id", (req, res, next) => {
 
 
 router.post("/matching/requirements", (req, res, next) => {
+    console.log(req.body.studentId);
     db.query(`CALL fetch_requirements(?)`, [req.body.studentId], (err, result)=> {
         if (err) {
             console.log(err)

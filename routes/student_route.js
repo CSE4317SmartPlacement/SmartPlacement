@@ -84,7 +84,7 @@ router.post("/studapplication/:id", async (req, res, next) => {
                 console.log(err);
                 res.status(400).json({ success: false, error: err });
             } else {
-                //console.log(req.params.id);
+                console.log(req.params.id);
                 //console.log(result);
                 res.status(200).json({ success: true, result: result[0][0] });
             }
@@ -92,19 +92,26 @@ router.post("/studapplication/:id", async (req, res, next) => {
     );
 });
 
-router.post("/studapplication/email", async (req, res, next) => {
-    console.log(req.body.email)
+router.post("/studapplicationemail/:email", async (req, res, next) => {
+    console.log('Inside studapplication route');
+    console.log(req.params.email);
     db.query(
-        `CALL fetch_stud_email(?)`,[req.body.email],
+        `CALL fetch_stud_email(?)`,[req.params.email],
         (err, result) => {
             if (err) {
+                console.log(req.params.email);
+                console.log(result[0]);
                 res.status(400).json({ success: false, error: err });
             } else {
+                console.log(req.params.email);
+                console.log(result[0]);
                 res.status(200).json({ success: true, result: result[0] });
             }
         }
     );
 });
+
+
 
 // Matching Student with Agency
 
