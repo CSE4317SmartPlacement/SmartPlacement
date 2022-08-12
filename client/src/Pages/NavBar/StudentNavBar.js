@@ -46,7 +46,7 @@ const StudentNavBar = () =>  {
                     <NavDropdown.Item onClick={signOut} >Sign Out</NavDropdown.Item>
                     </NavDropdown>
                     <Navbar.Text className="justify-content-end">
-                        <h5>{userEmail}</h5>
+                       <h6>Signed in as: {userEmail}</h6>
                     </Navbar.Text>
                 </Nav>
                 </Navbar.Collapse>
