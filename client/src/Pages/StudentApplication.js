@@ -477,7 +477,7 @@ const StudentApplication = () => {
                       : formValue.agent_type_one}
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
+                  <Dropdown.Menu className = "stateMenu">
                     {agencyTypes.map((item) => {
                       return (
                         <Dropdown.Item
