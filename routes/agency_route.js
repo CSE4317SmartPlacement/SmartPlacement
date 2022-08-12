@@ -96,6 +96,7 @@ router.post("/agency/:id", async (req, res, next) => {
 
 //Route for getting agency using email
 router.post("/agencyemail/:email", async (req, res, next) => {
+  console.log("dfdfdfdfd");
   db.query(
     `CALL fetch_agency_email(?)`, [req.params.email],
     (err, result) => {

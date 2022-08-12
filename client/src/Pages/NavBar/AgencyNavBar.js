@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom'
 const AgencyNavBar = () =>  {
     var isSubmitted= localStorage.getItem("isSubmitted");
     var access= localStorage.getItem("access");
+    var userEmail= JSON.parse(localStorage.getItem("user"))[0].username;
     var isTrueSet = false;
     var isAgency = false;
     isTrueSet = (isSubmitted === 'true');
@@ -38,13 +39,16 @@ const AgencyNavBar = () =>  {
                     <Nav.Link href="/agencyhomepage">Home</Nav.Link>
                     <Nav.Link href="/requeststudents">Vacancy Request</Nav.Link>
                     <Nav.Link href="/agency-ownstatus">Status</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{paddingRight: '150px'}}>
+                    <NavDropdown title="UTA Info" id="basic-nav-dropdown" style={{paddingRight: '150px'}}>
                     <NavDropdown.Item href="https://www.uta.edu/" target="_blank">UTA Homepage</NavDropdown.Item>
                     <NavDropdown.Item href="https://www.uta.edu/mymav/" target="_blank">MyMav</NavDropdown.Item>
                     <NavDropdown.Item href="/AdminHomepage">FAQ</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={signOut} >Sign Out</NavDropdown.Item>
                     </NavDropdown>
+                    <Navbar.Text className="justify-content-end">
+                        <h5>{userEmail}</h5>
+                    </Navbar.Text>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

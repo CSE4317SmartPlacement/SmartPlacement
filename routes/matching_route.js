@@ -62,12 +62,14 @@ router.post("/matching/requirements", (req, res, next) => {
 //Route for getting the list of studetns working in a specific agency
 router.post("/matchingstudent/studentlist", (req, res, next) => {
     const email = req.body.email;
+    console.log(email);
     db.query(
       `CALL matching_studentlist(?)`, [email],
       (err, results) => {
         if (err) {
           console.log(err);
         } else {
+            console.log(results)
           res.status(200).json({ data: results });
         }
       }

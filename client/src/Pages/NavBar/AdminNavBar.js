@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom'
 const AdminNavBar = () =>  {
     var isSubmitted= localStorage.getItem("isSubmitted");
     var access= localStorage.getItem("access");
+    var userEmail= JSON.parse(localStorage.getItem("user"))[0].username;
     var isTrueSet = false;
     var isAgency = false;
     isTrueSet = (isSubmitted === 'true');
@@ -38,13 +39,16 @@ const AdminNavBar = () =>  {
                     <Nav.Link href="/agencies">Agency</Nav.Link>
                     <Nav.Link href="/students">Student</Nav.Link>
                     <Nav.Link href="/vacancyrequesttable">Vacancy</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{paddingRight: '150px'}}>
+                    <NavDropdown title="UTA Info" id="basic-nav-dropdown" style={{paddingRight: '150px'}}>
                     <NavDropdown.Item href="https://www.uta.edu/" target="_blank">UTA Homepage</NavDropdown.Item>
                     <NavDropdown.Item href="https://www.uta.edu/mymav/" target="_blank">MyMav</NavDropdown.Item>
                     <NavDropdown.Item href="/AdminHomepage">FAQ</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={signOut} >Sign Out</NavDropdown.Item>
                     </NavDropdown>
+                    <Navbar.Text className="justify-content-end">
+                        <h6>Signed in as: {userEmail}</h6>
+                    </Navbar.Text>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

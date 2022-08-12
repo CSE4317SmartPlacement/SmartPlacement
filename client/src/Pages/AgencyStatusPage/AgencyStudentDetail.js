@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Row, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import MyNavbar from "../NavBar/AdminNavBar";
-import TableRow from "../AgencyDetailPage/Components/TableRow";
+import MyNavbar from "../NavBar/AgencyNavBar";
+import TableRow from "../TableRow";
 
 function AgencyStudentDetail() {
   const history = useHistory();
@@ -65,7 +65,7 @@ function AgencyStudentDetail() {
 
   return (
     <div>
-      <MyNavbar />
+      <MyNavbar /> 
       <div className="container">
         <Card style={{ margin: "50px 0px" }}>
           <Row className="justify-content-center mt-5 mb-5">
@@ -76,7 +76,7 @@ function AgencyStudentDetail() {
                 fontWeight: "bold",
               }}
             >
-              Student Application Request
+              Student Information
             </p>
           </Row>
           <Row className="justify-content-center" style={{ margin: "2% 3%" }}>
@@ -140,40 +140,6 @@ function AgencyStudentDetail() {
                   value={
                     <p style={{ fontWeight: "bold", fontSize: "20px" }}>
                       {student.registered_level}{" "}
-                    </p>
-                  }
-                />
-                <TableRow
-                  title="Application Status"
-                  value={
-                    <p
-                      style={{
-                        fontWeight: "bold",
-                        color:
-                          student.approval == "pending"
-                            ? "blue"
-                            : student.approval == "approved" ||
-                              student.approval == "matching"
-                            ? "green"
-                            : "red",
-                        fontSize: "20px",
-                      }}
-                    >
-                      {isMatched ? (
-                        <span>
-                          Already matched with{" "}
-                          <a
-                            className="text-primary"
-                            onClick={(e) => {
-                              history.push("/agency-detail", { data: agency });
-                            }}
-                          >
-                            {agency.agency_name}
-                          </a>
-                        </span>
-                      ) : (
-                        student.approval
-                      )}
                     </p>
                   }
                 />

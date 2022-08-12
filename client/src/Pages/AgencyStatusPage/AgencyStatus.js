@@ -7,9 +7,12 @@ const AgencyStatus = ()=>{
     const [agency, setAgency] = useState({});
     
     const getAgencyByEmail = async ()=>{
-      const agencyEmail = JSON.parse(localStorage.getItem("user")[0].email);
-      const result = await axios.post("/agencyemail/"+agencyEmail);
-      setAgency(result);
+      const user = localStorage.getItem("user");
+      const email = JSON.parse(user)[0].username;
+      console.log(email);
+      const response = await axios.post("/agencyemail/"+email);
+      console.log(response);
+      setAgency(response.data.result);
     }
 
     useEffect(() => {
@@ -34,8 +37,8 @@ const AgencyStatus = ()=>{
             <h4 className="mb-3">Agency Information</h4>
             <Table hover bordered >
               <tbody>
-                <TableRow title="Agency Name" value={agency.agency_name.toUpperCase()} />
-                <TableRow title="Agency Type" value={agency.agency_type.toUpperCase()} />
+                <TableRow title="Agency Name" value={agency.agency_name} />
+                <TableRow title="Agency Type" value={agency.agency_type} />
                 <TableRow title="EIN" value={<p style={{ fontWeight: "bold", fontSize: "20px" }}>{agency.ein} </p>} />
                 <TableRow title="Business Email" value={agency.email} />
                 <TableRow title="Business Address" value={
@@ -52,13 +55,13 @@ const AgencyStatus = ()=>{
                   agency.mail_city + ", " + agency.mail_state + ", " + agency.mail_zip}>
                   {`${agency.mail_street} ${agency.mail_unit}, ${agency.mail_city} ${agency.mail_state} ${agency.mail_zip} ${agency.mail_country}`}
                 </a>} />
-                <TableRow title="Preferred Contacts"
+                {/* <TableRow title="Preferred Contacts"
                   value={<div>
                     {JSON.parse(agency.preferred_contacts).map((item) => {
                       if (item.checked) {
                         return <p>{item.title}</p>
                       }
-                    })}</div>} />
+                    })}</div>} /> */}
               </tbody>
             </Table>
           </Row>
@@ -80,13 +83,13 @@ const AgencyStatus = ()=>{
               <tbody>
                 <TableRow striped title="Request Date" value={new Date(agency.request_date).toDateString() + " at " + new Date(agency.request_date).toLocaleTimeString()} />
                 <TableRow title="Placement Type" value={agency.placement_type} />
-                <TableRow title="Graduation level"
+                {/* <TableRow title="Graduation level"
                   value={<div>
                     {JSON.parse(agency.graduation_level).map((item) => {
                       if (item.checked) {
                         return <p>{item.title}</p>
                       }
-                    })}</div>} />
+                    })}</div>} /> */}
                 <TableRow title="Application Status"
                   value={<p
                     style={{
@@ -95,7 +98,7 @@ const AgencyStatus = ()=>{
                         agency.approval == "approved" ? "green" : "red",
                       fontSize: "25px"
                     }}>
-                    {agency.approval.toUpperCase()}
+                    {agency.approval}
                   </p>} />
               </tbody>
             </Table>

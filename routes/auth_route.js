@@ -18,6 +18,7 @@ router.post("/register", (req, res) => {
             if (err) {
                 res.send({ err: err });
             } else {
+                console.log(result);
                 res.send(...result[0]);
             }
         }

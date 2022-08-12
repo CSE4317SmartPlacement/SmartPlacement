@@ -17,11 +17,10 @@ const AgencyHomepage = () => {
 
   const getData = () => {
     const user = localStorage.getItem("user");
-    console.log(JSON.parse(user));
-    const email = JSON.parse(user).username;
+    const email = JSON.parse(user)[0].username;
     axios.post("/matchingstudent/studentlist", { email }).then((response) => {
       console.log(response.data);
-      setData(response.data.data);
+      setData(response.data.data[0]);
     });
   };
 
@@ -52,7 +51,7 @@ const AgencyHomepage = () => {
         <Button
           variant="primary"
           onClick={(e) => {
-            history.push("/student-detail", {
+            history.push("/agencystudentdetail", {
               data: data[rowIndex],
             });
           }}

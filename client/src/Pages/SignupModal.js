@@ -29,18 +29,18 @@ const SignupModal = (props) => {
               password:password,
               accessLevel:accessLevel
             }).then((response)=>{
-                if(response.data.err || response.data.error){
-                    setError(true);
-                    setAgencyError(false);
-                }
-                else if(response.data.add_return != "" || response.data.add_return != null){
-                    setAgencyError(true);
-                    setError(true);
-                }
-                else{
+                if(response.data.add_return === "Student added" || response.data.add_return === "Agency added" || response.data.add_return === "Administrator added"){
                     setError(false);
                     setAgencyError(false);
                     window.location.href='/';
+                }
+                else if(response.data.err || response.data.error || response.data.add_return ==="Email doesn't exist"){
+                    setError(true);
+                    setAgencyError(false);
+                }
+                else if(response.data.add_return === "Agency isn't approved"){
+                    setAgencyError(true);
+                    setError(true);
                 }
             })
         };       
@@ -95,7 +95,7 @@ const SignupModal = (props) => {
             <option value="3">Administrator</option>
         </Form.Select>
         <div style={{color:"red"}}>
-          {!error?"":(!agencyError?"Email already exists":"You have not been approved")}
+          {!error?"":(!agencyError?"Try using another email":"You have not been approved")}
         </div>
         <br/>
         <div className="d-grid">
