@@ -56,7 +56,7 @@ function StudentListPage() {
           isDummyField: true,
           formatter: (cell, row, rowIndex) => <Button variant="primary" onClick={(e) => {
             history.push("/student-detail", { 
-              data:data[rowIndex]});
+              data:row});
           }}>Detail</Button>
       }];
     const { SearchBar } = Search;
