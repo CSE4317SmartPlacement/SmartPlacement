@@ -52,7 +52,7 @@ const AgencyHomepage = () => {
           variant="primary"
           onClick={(e) => {
             history.push("/agencystudentdetail", {
-              data: data[rowIndex],
+              data: row,
             });
           }}
         >
