@@ -51,7 +51,7 @@ const AgencyListPage = () =>  {
            isDummyField: true,
            formatter: (cell, row, rowIndex) => <Button variant="primary" onClick={(e) => {
              history.push("/agency-detail", { 
-               data:data[rowIndex]});
+               data:row});
            }}>Detail</Button>
        }];
 
