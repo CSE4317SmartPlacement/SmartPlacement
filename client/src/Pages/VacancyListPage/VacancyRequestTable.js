@@ -61,7 +61,7 @@ const VacancyRequestTable = () =>  {
           isDummyField: true,
           formatter: (cell, row) => <Button variant="primary" onClick={(e) => {
             history.push("/vacancyrequest", { 
-              data:data.find(x=>x.id===row.id)});
+              data:row});
           }}>Detail</Button>
       }];
 
