@@ -49,9 +49,9 @@ const AgencyListPage = () =>  {
            dataField: "detail",
            text: "Detail",
            isDummyField: true,
-           formatter: (cell, row) => <Button variant="primary" onClick={(e) => {
+           formatter: (cell, row, rowIndex) => <Button variant="primary" onClick={(e) => {
              history.push("/agency-detail", { 
-               data:data.find(x=>x.id===row.id)});
+               data:data[rowIndex]});
            }}>Detail</Button>
        }];
 
