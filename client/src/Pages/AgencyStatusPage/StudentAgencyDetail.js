@@ -4,6 +4,10 @@ import { useHistory } from "react-router-dom";
 import MyNavbar from "../NavBar/StudentNavBar";
 import TableRow from "../TableRow";
 
+/**
+ * Student agency detail page
+ * @returns {JSX.Element}
+ */
 const StudentAgencyDetail=()=> {
     const history = useHistory();
     const agency = history.location.state.data;

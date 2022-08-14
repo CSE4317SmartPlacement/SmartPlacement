@@ -4,6 +4,10 @@ import { Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
+/**
+ * Forgot password page
+ * @returns {JSX.Element}
+ */
 const ForgotPassword = () => {
     const formStyle = {
         position: 'absolute',
@@ -27,14 +31,19 @@ const ForgotPassword = () => {
 
       let history = useHistory();
     const cancle =()=>{
-        history.push("/")
+      history.push("/")
     }
 
     const [username, setUserName] = useState("");
     const [password1, setPassword1] = useState("false");
     const [password, setPassword] = useState("false");
     const [error, setError] = useState(false);
-    
+
+/**
+ * Checking if the user exists in the database
+ * @param {string} event 
+ * @return {Object} user information
+ */
 const loginUser=(event)=>{
   event.preventDefault();
   Axios.post("/finduser",{
@@ -49,6 +58,10 @@ const loginUser=(event)=>{
   });
 };
 
+/**
+ * Changign password
+ * @returns {string}
+ */
 const changePassword=(event)=>{
   event.preventDefault();
   if(password1 !== password){

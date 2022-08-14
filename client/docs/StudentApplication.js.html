@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: StudentApplication.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: StudentApplication.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import NavBar from "./NavBar/StudentNavBar";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import "../Style/styles.css";
+
+/**
+ * Student Application page
+ * @returns {JSX.Element}
+ */
+const StudentApplication = () => {
+  const history = useHistory();
+  const hover = (e) => {
+    e.target.style.background = "#205eb9";
+  };
+
+  const hoverStop = (e) => {
+    e.target.style.background = "#0d6efd";
+  };
+  const [formValue, setFormValue] = useState({
+    preferred_contacts: [
+      { title: "Email", checked: false },
+      { title: "Fax", checked: false },
+      { title: "Phone", checked: false },
+      { title: "SMS", checked: false },
+    ],
+  });
+
+  /**
+   * Student application form
+   * @return {Object}
+   */
+  const submitApplication = (e) => {
+    e.preventDefault();
+    axios.post("/studapplicationadd", formValue).then((response) => {
+      history.push("/studenthomepage");
+    });
+  };
+
+  //handle form change
+  const onFormChange = (e) => {
+    setFormValue({
+      ...formValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+  var agencyTypes = [
+    "Addictions",
+    "Adoptions",
+    "Aged Care",
+    "Alcohol &amp; amp; Drug",
+    "Athletics",
+    "Carers",
+    "Child Intervention",
+    "Children",
+    "Chiropractic Office",
+    "Coaching",
+    "Community",
+    "Correctional",
+    "Counselling",
+    "Court",
+    "Crisis Support",
+    "Disability",
+    "Domestic Violence",
+    "Education",
+    "Employment",
+    "Ethnic",
+    "Family",
+    "Fitness Center",
+    "Grief",
+    "Health",
+    "Homeless",
+    "Housing",
+    "Indigenous",
+    "International",
+    "Law",
+    "Mediation",
+    "Mental Health",
+    "Occupational Therapy",
+    "Offenders",
+    "Other",
+    "P - 12",
+    "Palliative Care",
+    "Personal Training",
+    "Physical Therapy",
+    "Policy",
+    "Primary School",
+    "Private",
+    "Prosthetics and Orthotics",
+    "Public",
+    "Recreation Center - Collegiate",
+    "Refugee",
+    "Rehabilitation",
+    "Research Lab",
+    "Secondary School",
+    "Sexual Assault",
+    "Shadowing PA",
+    "Shadowing Physician",
+    "Social Action",
+    "Special Population",
+    "Strength and Conditioning",
+    "TAFE",
+    "Veterans",
+    "Violence",
+    "Welfare",
+    "Wellness",
+    "Women",
+    "Womens Advocacy",
+    "Youth",
+  ];
+  var titles = [
+    "Associate Professor",
+    "Dr",
+    "Father",
+    "Miss",
+    "Mr",
+    "Mrs",
+    "Ms",
+    "Professor",
+    "Reverend",
+  ];
+  var states = [
+    "Alabama",
+    "Alaska",
+    "American Samoa",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "District of Columbia",
+    "Federated States of Micronesia",
+    "Florida",
+    "Georgia",
+    "Guam",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Marshall Islands",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Northern Mariana Islands",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Palau",
+    "Pennsylvania",
+    "Puerto Rico",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virgin Island",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
+  var level_of_class = ["BSW", "MSW"];
+  return (
+    &lt;div>
+      &lt;NavBar>&lt;/NavBar>
+      &lt;div>
+        &lt;div className="mb-3">&lt;/div>
+        &lt;div
+          class="container form-horizontal col-sm-5 w-30"
+          style={{ textAlign: "Left"}}
+        >
+          &lt;br/>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div>
+            &lt;h3 style={{textAlign:"center"}}>Apply for Placement process&lt;/h3>
+          &lt;/div>
+          &lt;br/>
+          &lt;br/>
+          &lt;div class="form-group row">
+            &lt;label class="col-sm-5 col-form-label">Title &lt;/label>
+            &lt;div class="col-sm-7">
+              &lt;Dropdown className="d-inline mx-6 w-75 col-sm-5">
+                &lt;Dropdown.Toggle id="dropdown-autoclose-true">
+                  {formValue.stud_title == null
+                    ? "Title"
+                    : formValue.stud_title}
+                &lt;/Dropdown.Toggle>
+                &lt;Dropdown.Menu>
+                  {titles.map((item) => {
+                    return (
+                      &lt;Dropdown.Item
+                        onClick={() => {
+                          setFormValue({
+                            ...formValue,
+                            stud_title: item,
+                          });
+                        }}
+                      >
+                        {item}
+                      &lt;/Dropdown.Item>
+                    );
+                  })}
+                &lt;/Dropdown.Menu>
+              &lt;/Dropdown>
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;form>
+            &lt;div class="form-group row">
+              &lt;label for="fname" class="col-sm-5 col-form-label">
+                First Name
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="fname"
+                  placeholder="First Name"
+                  name="stud_fname"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="lname" class="col-sm-5 col-form-label">
+                Last Name
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="lname"
+                  placeholder="Last Name"
+                  name="stud_lname"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="stdid" class="col-sm-5 col-form-label">
+                Student Id
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="Number"
+                  class="form-control"
+                  id="stdid"
+                  placeholder="Student Id"
+                  name="stud_id"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="firstpriority" class="col-sm-5 col-form-label">
+                Registered Course
+              &lt;/label>
+
+              &lt;div class="col-sm-5">
+                &lt;Dropdown className="d-inline mx-6 w-75 col-sm-5">
+                  &lt;Dropdown.Toggle id="dropdown-autoclose-true">
+                    {formValue.registered_level == null
+                      ? "Which course are you registered?"
+                      : formValue.registered_level}
+                  &lt;/Dropdown.Toggle>
+                  &lt;Dropdown.Menu>
+                    {level_of_class.map((item) => {
+                      return (
+                        &lt;Dropdown.Item
+                          onClick={() => {
+                            setFormValue({
+                              ...formValue,
+                              registered_level: item,
+                            });
+                          }}
+                        >
+                          {item}
+                        &lt;/Dropdown.Item>
+                      );
+                    })}
+                  &lt;/Dropdown.Menu>
+                &lt;/Dropdown>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="Hphone" class="col-sm-5 col-form-label">
+                Home Phone
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="Number"
+                  class="form-control"
+                  id="Hphone"
+                  placeholder="Home Phone"
+                  name="stud_homephone"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="Mphone" class="col-sm-5 col-form-label">
+                Mobile Number
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="Mphone"
+                  placeholder="Mobile Number "
+                  name="stud_mobilephone"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="Email" class="col-sm-5 col-form-label">
+                Email address
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="Email"
+                  placeholder="Email address"
+                  name="stud_email"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;br/>
+            &lt;div className="mb-3">&lt;/div>
+
+            &lt;h5>Mailing Address&lt;/h5>
+
+            &lt;div class="form-group row">
+              &lt;label for="Unum" class="col-sm-5 col-form-label">
+                Unit number
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="Unum"
+                  name="stud_unit"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="Stname" class="col-sm-5 col-form-label">
+                Street Number and Name
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="Stname"
+                  name="stud_street"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="ccity" class="col-sm-5 col-form-label">
+                City
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="ccity"
+                  placeholder="City"
+                  name="stud_city"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="Sstate" class="col-sm-5 col-form-label">
+                State
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;Dropdown className="d-inline mx-6 w-75 col-sm-5">
+                  &lt;Dropdown.Toggle id="dropdown-autoclose-true">
+                    {formValue.stud_state == null
+                      ? "State"
+                      : formValue.stud_state}
+                  &lt;/Dropdown.Toggle>
+                  &lt;Dropdown.Menu className="stateMenu">
+                    {states.map((item) => {
+                      return (
+                        &lt;Dropdown.Item
+                          onClick={() => {
+                            setFormValue({
+                              ...formValue,
+                              stud_state: item,
+                            });
+                          }}
+                        >
+                          {item}
+                        &lt;/Dropdown.Item>
+                      );
+                    })}
+                  &lt;/Dropdown.Menu>
+                &lt;/Dropdown>
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="szip" class="col-sm-5 col-form-label">
+                Zip code
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="szip"
+                  placeholder="Zipcode"
+                  name="stud_zipcode"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="scountry" class="col-sm-5 col-form-label">
+                Country
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input
+                  type="text"
+                  class="form-control"
+                  id="scountry"
+                  placeholder="Country"
+                  name="stud_country"
+                  onChange={onFormChange}
+                />
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="firstpriority" class="col-sm-5 col-form-label">
+                Placement type 1
+              &lt;/label>
+
+              &lt;div class="col-sm-5">
+                &lt;Dropdown>
+                  &lt;Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    {formValue.agent_type_one == null
+                      ? " First prefered type"
+                      : formValue.agent_type_one}
+                  &lt;/Dropdown.Toggle>
+
+                  &lt;Dropdown.Menu className = "stateMenu">
+                    {agencyTypes.map((item) => {
+                      return (
+                        &lt;Dropdown.Item
+                          onClick={() => {
+                            setFormValue({
+                              ...formValue,
+                              agent_type_one: item,
+                            });
+                          }}
+                        >
+                          {item}
+                        &lt;/Dropdown.Item>
+                      );
+                    })}
+                  &lt;/Dropdown.Menu>
+                &lt;/Dropdown>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="firstpriority" class="col-sm-5 col-form-label">
+                Placement type 2
+              &lt;/label>
+
+              &lt;div class="col-sm-5">
+                &lt;Dropdown>
+                  &lt;Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    {formValue.agent_type_two == null
+                      ? "Second prefered type "
+                      : formValue.agent_type_two}
+                  &lt;/Dropdown.Toggle>
+
+                  &lt;Dropdown.Menu className = "stateMenu">
+                    {agencyTypes.map((item) => {
+                      return (
+                        &lt;Dropdown.Item
+                          onClick={() => {
+                            setFormValue({
+                              ...formValue,
+                              agent_type_two: item,
+                            });
+                          }}
+                        >
+                          {item}
+                        &lt;/Dropdown.Item>
+                      );
+                    })}
+                  &lt;/Dropdown.Menu>
+                &lt;/Dropdown>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="firstpriority" class="col-sm-5 col-form-label">
+                Placement type 3
+              &lt;/label>
+
+              &lt;div class="col-sm-5">
+                &lt;Dropdown>
+                  &lt;Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    {formValue.agent_type_three == null
+                      ? "Third prefered type"
+                      : formValue.agent_type_three}
+                  &lt;/Dropdown.Toggle>
+
+                  &lt;Dropdown.Menu className = "stateMenu">
+                    {agencyTypes.map((item) => {
+                      return (
+                        &lt;Dropdown.Item
+                          onClick={() => {
+                            setFormValue({
+                              ...formValue,
+                              agent_type_three: item,
+                            });
+                          }}
+                        >
+                          {item}
+                        &lt;/Dropdown.Item>
+                      );
+                    })}
+                  &lt;/Dropdown.Menu>
+                &lt;/Dropdown>
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label class="col-sm-5" for="fFile">
+                Upload Resume
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;input type="file" class="form-control-file" id="fFile" />
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="mb-3">&lt;/div>
+            &lt;div class="form-group row">
+              &lt;label for="fname" class="col-sm-5 col-form-label">
+                Prefered Contact
+              &lt;/label>
+              &lt;div class="col-sm-5">
+                &lt;div class="form-group row col-sm-15 ">
+                  {formValue.preferred_contacts.map((item) => {
+                    return (
+                      &lt;div className="form-check">
+                        &lt;label className="form-check-label">
+                          &lt;input
+                            type="checkbox"
+                            onClick={() => {
+                              item.checked = !item.checked ? true : false;
+
+                              var contacts = formValue.preferred_contacts;
+
+                              setFormValue({
+                                ...formValue,
+                                preferred_contacts: contacts,
+                              });
+                            }}
+                            className="form-check-input"
+                          />
+                          {item.title}
+                        &lt;/label>
+                      &lt;/div>
+                    );
+                  })}
+                &lt;/div>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="mb-3">&lt;/div>
+            &lt;center>
+              &lt;div class="d-grid col-sm-5 text-center">
+                &lt;button
+                  onClick={submitApplication}
+                  onMouseOver={hover}
+                  onMouseLeave={hoverStop}
+                  className="btn btn-primary"
+                  style={{ background: "#0d6efd", border: "#0d6efd" }}
+                >
+                  Apply
+                &lt;/button>
+              &lt;/div>
+            &lt;/center>
+          &lt;/form>
+        &lt;/div>
+        &lt;div className="mb-5">&lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+export default StudentApplication;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminHomepage">AdminHomepage</a></li><li><a href="global.html#AgencyAccountRequest">AgencyAccountRequest</a></li><li><a href="global.html#AgencyDetailPage">AgencyDetailPage</a></li><li><a href="global.html#AgencyHomepage">AgencyHomepage</a></li><li><a href="global.html#AgencyListPage">AgencyListPage</a></li><li><a href="global.html#AgencyNavBar">AgencyNavBar</a></li><li><a href="global.html#AgencyStatus">AgencyStatus</a></li><li><a href="global.html#AgencyStudentDetail">AgencyStudentDetail</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#SignupModal">SignupModal</a></li><li><a href="global.html#StudentAgencyDetail">StudentAgencyDetail</a></li><li><a href="global.html#StudentApplication">StudentApplication</a></li><li><a href="global.html#StudentDetailPage">StudentDetailPage</a></li><li><a href="global.html#StudentHomepage">StudentHomepage</a></li><li><a href="global.html#StudentListPage">StudentListPage</a></li><li><a href="global.html#StudentNavBar">StudentNavBar</a></li><li><a href="global.html#TableRow">TableRow</a></li><li><a href="global.html#VacancyRequest">VacancyRequest</a></li><li><a href="global.html#VacancyRequestTable">VacancyRequestTable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Aug 14 2022 02:26:36 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

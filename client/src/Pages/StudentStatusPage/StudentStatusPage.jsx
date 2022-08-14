@@ -5,12 +5,17 @@ import MyNavbar from "../NavBar/StudentNavBar";
 import TableRow from "../TableRow";
 import { useHistory } from 'react-router-dom';
 
+/**
+ * StudentStatusPage
+ * @returns {Component} 
+ */
 function StudentStatusPage() {
     const history = useHistory();
     const [isMatched, setIsmatched] = useState(false)
     const [agency, setAgency] = useState("")
     const [student, setStudents] = useState({});
 
+    //Getting the match status of the student
     var fetchMatchStatus = async() => {
         const uname = JSON.parse(localStorage.getItem("user"))[0].username;
         const response = await axios.post("/studapplicationemail/" + uname);
@@ -28,6 +33,7 @@ function StudentStatusPage() {
         }
     }
     
+    //Checking if the student is matched or not
     var fetchIsMatched= async(studentId) => {
             const response = await axios.post("/matching/student/" + studentId);
             return response;

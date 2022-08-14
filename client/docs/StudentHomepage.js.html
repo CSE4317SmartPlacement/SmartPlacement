@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: StudentHomepage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: StudentHomepage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel';
+import Form from 'react-bootstrap/Form';
+import { Redirect } from 'react-router-dom'
+import NavBar from './NavBar/StudentNavBar';
+
+/**
+ * Student homepage
+ * @returns {JSX.Element}
+ */
+const StudentHomepage = () => {
+  return (
+    &lt;div>
+      &lt;NavBar>&lt;/NavBar>
+      &lt;div className="container my-5" style={{textAlign: 'center', color: 'rgb(14, 189, 248)'}}>
+        &lt;h1>Student Placement Portal&lt;/h1>
+
+        &lt;Carousel>
+      &lt;Carousel.Item>
+        &lt;img
+          className="d-block w-100"
+          src="https://thumbnails.texastribune.org/0lQxEGTMnxebRXUYhNAbVylabQU=/1200x630/filters:quality(95)/static.texastribune.org/media/files/99b18bdd2d62f1dcbbc487d43f17e4a4/UT%20Arlington%20Covid%20ST%20TT%2012.jpg"
+          alt="First slide"
+        />
+        &lt;Carousel.Caption>
+          &lt;h3>Placement opportunities found near you&lt;/h3>
+          &lt;p>Please check your pending notifications for new placement suggestions.&lt;/p>
+        &lt;/Carousel.Caption>
+      &lt;/Carousel.Item>
+      &lt;Carousel.Item>
+        &lt;img
+          className="d-block w-100"
+          src="https://images.ctfassets.net/wob906kz2qeo/oGjzicAeYfFV09YlinEGA/7e66338af45275d27fa670808928fe27/img-2022-01-blog-newsletter-teal-1200x630.png"
+          alt="Second slide"
+        />
+
+        &lt;Carousel.Caption>
+          &lt;h3>Discover your ideas&lt;/h3>
+          &lt;p>Get to know yourself by getting into your first placement.&lt;/p>
+        &lt;/Carousel.Caption>
+      &lt;/Carousel.Item>
+      &lt;Carousel.Item>
+        &lt;img
+          className="d-block w-100"
+          src="https://www.teahub.io/photos/full/174-1742639_beautiful-nature-images-4k.jpg"
+          alt="Third slide"
+        />
+
+        &lt;Carousel.Caption>
+        &lt;h3>Explore your future now&lt;/h3>
+          &lt;p>Find your qualified placement today to shine in the future.&lt;/p>
+        &lt;/Carousel.Caption>
+      &lt;/Carousel.Item>
+    &lt;/Carousel>
+
+      &lt;/div>
+      &lt;div className="row">
+        &lt;div className="col-sm-6">
+          &lt;div className="card">
+            &lt;div className="card-body">
+              &lt;h5 className="card-title">Required Tasks&lt;/h5>
+              &lt;p className="card-text">Complete all of the tasks before the deadline.&lt;/p>
+              &lt;button type="button" className="btn btn-primary">
+                To Do &lt;span className="badge bg-secondary">5&lt;/span>
+              &lt;/button>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+        &lt;div className="col-sm-6">
+          &lt;div className="card">
+            &lt;div className="card-body">
+              &lt;h5 className="card-title">Pending Notifications&lt;/h5>
+              &lt;p className="card-text">Review all of the pending notifications below.&lt;/p>
+              &lt;button type="button" className="btn btn-primary">
+                Notifications &lt;span className="badge bg-secondary">9&lt;/span>
+              &lt;/button>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+
+      &lt;Card style={{ width: '20rem', margin: 'auto', paddingLeft: '20px', paddingRight: '20px'}}>
+      &lt;Card.Img variant="top" src="https://media-exp1.licdn.com/dms/image/C4E0BAQGjwhCW28wBbw/company-logo_200_200/0/1584736693894?e=2147483647&amp;v=beta&amp;t=JV3h3uaP4hZ9OxGK_R1ssg5b1hTUPhWEHFo-k9Afvcw" />
+      &lt;Card.Body>
+        &lt;Card.Title>Important Notice&lt;/Card.Title>
+        &lt;Card.Text>
+          Please finish all of your placement applications before DD/MM/YYYY. 
+          Please contact your assigned advisor for any questions related to your placement applications.
+        &lt;/Card.Text>
+        &lt;Button variant="primary">Click to Acknowledge&lt;/Button>
+      &lt;/Card.Body>
+      &lt;/Card>
+  &lt;/div>   
+  )
+}
+
+export default StudentHomepage
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminHomepage">AdminHomepage</a></li><li><a href="global.html#AgencyAccountRequest">AgencyAccountRequest</a></li><li><a href="global.html#AgencyDetailPage">AgencyDetailPage</a></li><li><a href="global.html#AgencyHomepage">AgencyHomepage</a></li><li><a href="global.html#AgencyListPage">AgencyListPage</a></li><li><a href="global.html#AgencyNavBar">AgencyNavBar</a></li><li><a href="global.html#AgencyStatus">AgencyStatus</a></li><li><a href="global.html#AgencyStudentDetail">AgencyStudentDetail</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#SignupModal">SignupModal</a></li><li><a href="global.html#StudentAgencyDetail">StudentAgencyDetail</a></li><li><a href="global.html#StudentApplication">StudentApplication</a></li><li><a href="global.html#StudentDetailPage">StudentDetailPage</a></li><li><a href="global.html#StudentHomepage">StudentHomepage</a></li><li><a href="global.html#StudentListPage">StudentListPage</a></li><li><a href="global.html#StudentNavBar">StudentNavBar</a></li><li><a href="global.html#TableRow">TableRow</a></li><li><a href="global.html#VacancyRequest">VacancyRequest</a></li><li><a href="global.html#VacancyRequestTable">VacancyRequestTable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Aug 14 2022 02:26:36 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: AgencyListPage/AgencyListPage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: AgencyListPage/AgencyListPage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
+import NavBar from "../NavBar/AdminNavBar";
+import "../../Style/styles.css";
+
+/**
+ * Agency list page
+ * @returns {JSX.Element}
+ */
+const AgencyListPage = () =>  {
+    const history = useHistory();
+     const [data,setData]=useState([]);
+     useEffect(()=>{
+       getData();
+    },[]);
+
+    //Getting agency list
+     const getData = ()=>{
+         axios.post("/agency").then((response)=>{
+             setData(response.data.result);
+             console.log(response.data);
+         })};
+ 
+         const columns=[
+         {
+             dataField:"agency_id",
+             text:"Agency Id",
+             sort:true
+         },
+         {
+           dataField:"agency_name",
+           text:"Agency name",
+           sort:true
+         },
+         {
+             dataField:"agency_type",
+             text:"Agency Type"
+         },
+         {
+             dataField:"placement_type",
+             text:"Placement Type"
+         },
+         {
+           dataField:"approval",
+           text:"Status"
+         },
+         {
+           dataField: "detail",
+           text: "Detail",
+           isDummyField: true,
+           formatter: (cell, row,rowIndex) => &lt;Button variant="primary" onClick={(e) => {
+             history.push("/agency-detail", { 
+               data:row});
+           }}>Detail&lt;/Button>
+       }];
+
+    const { SearchBar } = Search;
+    return (
+      &lt;div className="outsideDiv">
+      &lt;NavBar>&lt;/NavBar>
+      &lt;br/>
+      &lt;br/>
+      &lt;h2 style={{textAlign: "center"}}>Agency Table&lt;/h2>
+      &lt;div className="studentRequestTable">
+          &lt;ToolkitProvider 
+            keyField="id" 
+            data={data} 
+            columns={columns}                       
+            search
+            >
+                {
+                  props => (
+                    &lt;div>
+                      &lt;SearchBar { ...props.searchProps } style={{borderColor:"grey"}} srText=""/>
+                      &lt;hr />
+                      &lt;BootstrapTable
+                        { ...props.baseProps }
+                        stripped 
+                        hover 
+                        condensed
+                        pagination={paginationFactory()}
+                        // filter={ filterFactory()} 
+                      />
+                    &lt;/div>
+                  )
+                }
+            &lt;/ToolkitProvider>
+      &lt;/div>
+      &lt;/div>
+    );
+}
+
+export default AgencyListPage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminHomepage">AdminHomepage</a></li><li><a href="global.html#AgencyAccountRequest">AgencyAccountRequest</a></li><li><a href="global.html#AgencyDetailPage">AgencyDetailPage</a></li><li><a href="global.html#AgencyHomepage">AgencyHomepage</a></li><li><a href="global.html#AgencyListPage">AgencyListPage</a></li><li><a href="global.html#AgencyNavBar">AgencyNavBar</a></li><li><a href="global.html#AgencyStatus">AgencyStatus</a></li><li><a href="global.html#AgencyStudentDetail">AgencyStudentDetail</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#SignupModal">SignupModal</a></li><li><a href="global.html#StudentAgencyDetail">StudentAgencyDetail</a></li><li><a href="global.html#StudentApplication">StudentApplication</a></li><li><a href="global.html#StudentDetailPage">StudentDetailPage</a></li><li><a href="global.html#StudentHomepage">StudentHomepage</a></li><li><a href="global.html#StudentListPage">StudentListPage</a></li><li><a href="global.html#StudentNavBar">StudentNavBar</a></li><li><a href="global.html#TableRow">TableRow</a></li><li><a href="global.html#VacancyRequest">VacancyRequest</a></li><li><a href="global.html#VacancyRequestTable">VacancyRequestTable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Aug 14 2022 02:26:36 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

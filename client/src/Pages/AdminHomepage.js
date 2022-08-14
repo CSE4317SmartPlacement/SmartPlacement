@@ -3,10 +3,19 @@ import React, { useState,useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import NavBar from './NavBar/AdminNavBar';
 
+/**
+ * Admin homepage
+ * @returns {JSX.Element}
+ */
 const AdminHomepage = () => {
   const [pendingAgencyNumber, setpendingAgencyNumber] = useState(0);
   const [pendingStudentNumber, setpendingStudentNumber] = useState(0);
   const [pendingVacancyNumber, setpendingVacancyNumber] = useState(0);
+
+  /**
+   * @param {string} 
+   * @returns {Object} Agency information
+   */
   const pendingAgencies = async()=>{
     const response = await axios.post("/agency");
     var num=0;
@@ -17,6 +26,11 @@ const AdminHomepage = () => {
     }});
     console.log(pendingAgencyNumber);
   }
+
+  /**
+   * @param {string} 
+   * @returns {Object} Student information
+   */
   const pendingStudents = async()=>{
     const response = await axios.post("/studapplication");
     var num=0;
@@ -27,6 +41,11 @@ const AdminHomepage = () => {
     }});
     console.log(pendingStudentNumber);
   }
+
+  /**
+   * @param {string} 
+   * @returns {Object} Vacancy information
+   */
   const pendingVacancy= async()=>{
     const response = await axios.post("/agency-student-request");
     var num=0;

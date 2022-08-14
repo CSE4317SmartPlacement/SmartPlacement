@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * Table row component
+ * @param {string, string} param0 
+ * @returns {JSX.Element}
+ */
 function TableRow({ title, value }) {
     return (
         <tr itemScope="row">

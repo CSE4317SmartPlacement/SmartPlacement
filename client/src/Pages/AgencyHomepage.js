@@ -11,10 +11,18 @@ import ToolkitProvider, {
   Search,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 
+/**
+ * Agency homepage
+ * @returns {JSX.Element}
+ */
 const AgencyHomepage = () => {
   const history = useHistory();
   const [data, setData] = useState([]);
 
+  /**
+   * @param {string} event
+   * @returns {Object} students information
+   */
   const getData = () => {
     const user = localStorage.getItem("user");
     const email = JSON.parse(user)[0].username;
@@ -24,6 +32,7 @@ const AgencyHomepage = () => {
     });
   };
 
+  //Making a datatable for the students list
   const columns = [
     {
       dataField: "stud_fname",
@@ -52,7 +61,7 @@ const AgencyHomepage = () => {
           variant="primary"
           onClick={(e) => {
             history.push("/agencystudentdetail", {
-              data: row,
+              data: data[rowIndex],
             });
           }}
         >
@@ -72,7 +81,7 @@ const AgencyHomepage = () => {
       <div className="studentRequestTable">
         <div>
           {" "}
-          <h1>List of Student For placement</h1>
+          <h1>List of Students Placed in the Agency</h1>
         </div>
         <ToolkitProvider keyField="id" data={data} columns={columns} search>
           {(props) => (

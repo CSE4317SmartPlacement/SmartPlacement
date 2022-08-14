@@ -6,6 +6,11 @@ import NavBar from "./NavBar/StudentNavBar";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../Style/styles.css";
+
+/**
+ * Student Application page
+ * @returns {JSX.Element}
+ */
 const StudentApplication = () => {
   const history = useHistory();
   const hover = (e) => {
@@ -24,6 +29,10 @@ const StudentApplication = () => {
     ],
   });
 
+  /**
+   * Student application form
+   * @return {Object}
+   */
   const submitApplication = (e) => {
     e.preventDefault();
     axios.post("/studapplicationadd", formValue).then((response) => {
@@ -31,6 +40,7 @@ const StudentApplication = () => {
     });
   };
 
+  //handle form change
   const onFormChange = (e) => {
     setFormValue({
       ...formValue,

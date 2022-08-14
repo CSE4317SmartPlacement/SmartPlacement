@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: AgencyAccountRequest.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: AgencyAccountRequest.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import axios from "axios";
+import "../Style/styles.css";
+
+/**
+ * Vacancy page
+ * @returns {JSX.Element}
+ */
+const AgencyAccountRequest = () => {
+  var states = [
+    "Alabama",
+    "Alaska",
+    "American Samoa",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "District of Columbia",
+    "Federated States of Micronesia",
+    "Florida",
+    "Georgia",
+    "Guam",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Marshall Islands",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Northern Mariana Islands",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Palau",
+    "Pennsylvania",
+    "Puerto Rico",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virgin Island",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
+
+  var agencyTypes = [
+    "Addictions",
+    "Adoptions",
+    "Aged Care",
+    "Alcohol &amp; amp; Drug",
+    "Athletics",
+    "Carers",
+    "Child Intervention",
+    "Children",
+    "Chiropractic Office",
+    "Coaching",
+    "Community",
+    "Correctional",
+    "Counselling",
+    "Court",
+    "Crisis Support",
+    "Disability",
+    "Domestic Violence",
+    "Education",
+    "Employment",
+    "Ethnic",
+    "Family",
+    "Fitness Center",
+    "Grief",
+    "Health",
+    "Homeless",
+    "Housing",
+    "Indigenous",
+    "International",
+    "Law",
+    "Mediation",
+    "Mental Health",
+    "Occupational Therapy",
+    "Offenders",
+    "Other",
+    "P - 12",
+    "Palliative Care",
+    "Personal Training",
+    "Physical Therapy",
+    "Policy",
+    "Primary School",
+    "Private",
+    "Prosthetics and Orthotics",
+    "Public",
+    "Recreation Center - Collegiate",
+    "Refugee",
+    "Rehabilitation",
+    "Research Lab",
+    "Secondary School",
+    "Sexual Assault",
+    "Shadowing PA",
+    "Shadowing Physician",
+    "Social Action",
+    "Special Population",
+    "Strength and Conditioning",
+    "TAFE",
+    "Veterans",
+    "Violence",
+    "Welfare",
+    "Wellness",
+    "Women",
+    "Womens Advocacy",
+    "Youth",
+  ];
+
+  var titles = [
+    "Associate Professor",
+    "Dr",
+    "Father",
+    "Miss",
+    "Mr",
+    "Mrs",
+    "Ms",
+    "Professor",
+    "Reverend",
+  ];
+
+  const hover = (e) => {
+    e.target.style.background = "#205eb9";
+  };
+  const hoverStop = (e) => {
+    e.target.style.background = "#0d6efd";
+  };
+
+  const [formValue, setFormValue] = useState({
+    preferred_contacts: [
+      { title: "Email", checked: false },
+      { title: "Fax", checked: false },
+      { title: "Phone", checked: false },
+      { title: "SMS", checked: false },
+    ],
+    graduation_level: [
+      { title: "Grad", checked: false },
+      { title: "UnderGrad", checked: false },
+    ],
+  });
+
+  const onFormChange = (e) => {
+    setFormValue({
+      ...formValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const [businessAddress, setBusinessAddress] = useState({});
+  const [mailingAddress, setMailingAddress] = useState({});
+
+  //Submit form for vacancy request 
+  const onSubmit = () => {
+    axios
+      .post("/agencyadd", {
+        formValue: formValue,
+        businessAddress: businessAddress,
+        mailingAddress: mailingAddress,
+      })
+      .then((response) => {
+          window.location.assign("/");
+      });
+  };
+
+  return (
+    &lt;div>
+      &lt;h1>
+        &lt;svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          fill="currentColor"
+          class="bi bi-people"
+          viewBox="0 0 16 16"
+        >
+          &lt;path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+        &lt;/svg>
+        Smart Placement
+      &lt;/h1>
+
+      &lt;div className="mb-3">&lt;/div>
+      &lt;div
+        class="container form-horizontal col-sm-5 w-30"
+        style={{ textAlign: "Left"}}
+      >
+        &lt;h3>&lt;b>Registration Your Agency&lt;/b>&lt;/h3>
+        &lt;br/>
+        &lt;div className="mb-3">&lt;/div>
+        &lt;div>
+          &lt;h5>About You&lt;/h5>
+        &lt;/div>
+        &lt;div class="form-group row">
+          &lt;label class="col-sm-5 col-form-label">Title &lt;/label>
+          &lt;div class="col-sm-7">
+            &lt;Dropdown className="d-inline mx-6 w-75 col-sm-5">
+              &lt;Dropdown.Toggle id="dropdown-autoclose-true">
+                {formValue.agent_title == null
+                  ? "Title"
+                  : formValue.agent_title}
+              &lt;/Dropdown.Toggle>
+              &lt;Dropdown.Menu>
+                {titles.map((item) => {
+                  return (
+                    &lt;Dropdown.Item
+                      onClick={() => {
+                        setFormValue({
+                          ...formValue,
+                          agent_title: item,
+                        });
+                      }}
+                    >
+                      {item}
+                    &lt;/Dropdown.Item>
+                  );
+                })}
+              &lt;/Dropdown.Menu>
+            &lt;/Dropdown>
+          &lt;/div>
+        &lt;/div>
+        &lt;div className="mb-3">&lt;/div>
+
+        &lt;form>
+          &lt;div class="form-group row">
+            &lt;label for="fname" class="col-sm-5 col-form-label">
+              First Name
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="fname"
+                placeholder="First Name"
+                name="agent_fname"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="lname" class="col-sm-5 col-form-label">
+              Last Name
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="lname"
+                placeholder="Last Name"
+                name="agent_lname"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="fname" class="col-sm-5 col-form-label">
+              Business Phone
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="number"
+                class="form-control"
+                id="bphone"
+                placeholder="Business Phone"
+                name="phone"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="smobphone" class="col-sm-5 col-form-label">
+              Mobile Number
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="smobphone"
+                placeholder="Mobile Number"
+                name="agent_phone"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="sBfax" class="col-sm-5 col-form-label">
+              Business Fax
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="sBfax"
+                placeholder="Business Fax"
+                name="fax"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="sBemail" class="col-sm-5 col-form-label">
+              Business Email
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="email"
+                class="form-control"
+                id="sBemail"
+                placeholder="Business Email"
+                name="email"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;br/>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div color="#000000">
+            &lt;h5>Set Up your Organization&lt;/h5>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="sorgani" class="col-sm-5 col-form-label">
+              Organization Name
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="sorgani"
+                placeholder="Organization Name"
+                name="agency_name"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="Atype" class="col-sm-5 col-form-label">
+              Agency type
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;Dropdown>
+                &lt;Dropdown.Toggle variant="primary" id="dropdown-basic">
+                  {formValue.agency_type == null
+                    ? "Agency Type"
+                    : formValue.agency_type}
+                &lt;/Dropdown.Toggle>
+
+                &lt;Dropdown.Menu className="agencyType">
+                  {agencyTypes.map((item) => {
+                    return (
+                      &lt;Dropdown.Item
+                        onClick={() => {
+                          setFormValue({
+                            ...formValue,
+                            agency_type: item,
+                          });
+                        }}
+                      >
+                        {item}
+                      &lt;/Dropdown.Item>
+                    );
+                  })}
+                &lt;/Dropdown.Menu>
+              &lt;/Dropdown>
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="sein" class="col-sm-5 col-form-label">
+              EIN
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="sein"
+                placeholder="EIN:"
+                name="ein"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="website" class="col-sm-5 col-form-label">
+              Website
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="website"
+                placeholder="website"
+                name="website"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="site" class="col-sm-5 col-form-label">
+              Select Graduation Level
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;div class="form-group row col-sm-15 ">
+                {formValue.graduation_level.map((item) => {
+                  return (
+                    &lt;div className="form-check">
+                      &lt;label className="form-check-label">
+                        &lt;input
+                          type="checkbox"
+                          onClick={() => {
+                            item.checked = !item.checked ? true : false;
+
+                            var contacts = formValue.graduation_level;
+
+                            setFormValue({
+                              ...formValue,
+                              graduation_level: contacts,
+                            });
+                          }}
+                          className="form-check-input"
+                        />
+                        {item.title}
+                      &lt;/label>
+                    &lt;/div>
+                  );
+                })}
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="Tplac" class="col-sm-5 col-form-label">
+              Types of Placement offered
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                class="form-control"
+                id="Tplac"
+                placeholder="Different placement types"
+                name="placement_type"
+                onChange={onFormChange}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+            &lt;br/>
+          &lt;div>
+            &lt;h5>Business Address&lt;/h5>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+
+          &lt;div class="form-group row">
+            &lt;label for="Bunit" class="col-sm-5 col-form-label">
+              Unit number
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                onChange={(e) => {
+                  setBusinessAddress({
+                    ...businessAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                class="form-control"
+                id="Bunit"
+                placeholder="Unit Number"
+                name="unit"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="bstreet" class="col-sm-5 col-form-label">
+              Street number and name
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                onChange={(e) => {
+                  setBusinessAddress({
+                    ...businessAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                class="form-control"
+                id="bstreet"
+                placeholder="Street number and name"
+                name="street"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="Bcity" class="col-sm-5 col-form-label">
+              city
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                onChange={(e) => {
+                  setBusinessAddress({
+                    ...businessAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                class="form-control"
+                id="Bcity"
+                placeholder="City"
+                name="city"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="bstate" class="col-sm-5 col-form-label">
+              State
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;Dropdown>
+                &lt;Dropdown.Toggle variant="primary" id="dropdown-basic" >
+                  {businessAddress.state == null
+                    ? "State"
+                    : businessAddress.state}
+                &lt;/Dropdown.Toggle>
+
+                &lt;Dropdown.Menu className="stateMenu">
+                  {states.map((item) => {
+                    return (
+                      &lt;Dropdown.Item
+                        onClick={() => {
+                          setBusinessAddress({
+                            ...businessAddress,
+                            state: item,
+                          });
+                        }}
+                      >
+                        {item}
+                      &lt;/Dropdown.Item>
+                    );
+                  })}
+                &lt;/Dropdown.Menu>
+              &lt;/Dropdown>
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="bzip" class="col-sm-5 col-form-label">
+              Zip code
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                onChange={(e) => {
+                  setBusinessAddress({
+                    ...businessAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                class="form-control"
+                id="bzip"
+                placeholder="Zipcode"
+                name="zip"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;br/>
+          &lt;div className="row">
+            &lt;h5>Mailing Address&lt;/h5>
+
+            &lt;div className="form-check">
+              &lt;label className="form-check-label">
+                &lt;input
+                  type="checkbox"
+                  onChange={(e) => {
+                    if (e.target.checked == false) {
+                      setMailingAddress({});
+                    } else {
+                      setMailingAddress(businessAddress);
+                    }
+                  }}
+                  className="form-check-input"
+                />
+                Same As Business Address
+              &lt;/label>
+            &lt;/div>
+          &lt;/div>
+
+          &lt;div class="form-group row">
+            &lt;label for="munit" class="col-sm-5 col-form-label">
+              Unit number
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                onChange={(e) => {
+                  setMailingAddress({
+                    ...mailingAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                value={mailingAddress.unit == null ? "" : mailingAddress.unit}
+                type="text"
+                class="form-control"
+                id="munit"
+                placeholder="Unit Number"
+                name="unit"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="mstreet" class="col-sm-5 col-form-label">
+              Street number and name
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                value={
+                  mailingAddress.street == null ? "" : mailingAddress.street
+                }
+                onChange={(e) => {
+                  setMailingAddress({
+                    ...mailingAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                class="form-control"
+                id="mstreet"
+                placeholder="Street number and name"
+                name="street"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="mcity" class="col-sm-5 col-form-label">
+              city
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                value={mailingAddress.city == null ? "" : mailingAddress.city}
+                onChange={(e) => {
+                  setMailingAddress({
+                    ...mailingAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                class="form-control"
+                id="mcity"
+                placeholder="City"
+                name="city"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="mstate" class="col-sm-5 col-form-label">
+              State
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;Dropdown>
+                &lt;Dropdown.Toggle variant="primary" id="dropdown-basic">
+                  {mailingAddress.state == null
+                    ? "State"
+                    : mailingAddress.state}
+                &lt;/Dropdown.Toggle>
+
+                &lt;Dropdown.Menu className="stateMenu">
+                  {states.map((item) => {
+                    return (
+                      &lt;Dropdown.Item
+                        onClick={() => {
+                          setMailingAddress({
+                            ...mailingAddress,
+                            state: item,
+                          });
+                        }}
+                      >
+                        {item}
+                      &lt;/Dropdown.Item>
+                    );
+                  })}
+                &lt;/Dropdown.Menu>
+              &lt;/Dropdown>
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="mzip" class="col-sm-5 col-form-label">
+              Zip code
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;input
+                type="text"
+                value={mailingAddress.zip == null ? "" : mailingAddress.zip}
+                onChange={(e) => {
+                  setMailingAddress({
+                    ...mailingAddress,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                class="form-control"
+                id="mzip"
+                placeholder="Zipcode"
+                name="zip"
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="mb-3">&lt;/div>
+          &lt;div class="form-group row">
+            &lt;label for="fname" class="col-sm-5 col-form-label">
+              Prefered Contact
+            &lt;/label>
+            &lt;div class="col-sm-5">
+              &lt;div class="form-group row col-sm-15 ">
+                {formValue.preferred_contacts.map((item) => {
+                  return (
+                    &lt;div className="form-check">
+                      &lt;label className="form-check-label">
+                        &lt;input
+                          type="checkbox"
+                          onClick={() => {
+                            item.checked = !item.checked ? true : false;
+
+                            var contacts = formValue.preferred_contacts;
+
+                            setFormValue({
+                              ...formValue,
+                              preferred_contacts: contacts,
+                            });
+                            console.log(formValue.preferred_contacts);
+                          }}
+                          className="form-check-input"
+                        />
+                        {item.title}
+                      &lt;/label>
+                    &lt;/div>
+                  );
+                })}
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+        &lt;/form>
+        &lt;br/>
+        &lt;div className="d-grid">
+          &lt;button
+            onClick={onSubmit}
+            onMouseOver={hover}
+            onMouseLeave={hoverStop}
+            type="submit"
+            className="btn btn-primary"
+            style={{ background: "#0d6efd", border: "#0d6efd" }}
+          >
+            Apply
+          &lt;/button>
+        &lt;/div>
+      &lt;/div>
+      &lt;div className="mb-5">&lt;/div>
+    &lt;/div>
+  );
+};
+
+export default AgencyAccountRequest;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminHomepage">AdminHomepage</a></li><li><a href="global.html#AgencyAccountRequest">AgencyAccountRequest</a></li><li><a href="global.html#AgencyDetailPage">AgencyDetailPage</a></li><li><a href="global.html#AgencyHomepage">AgencyHomepage</a></li><li><a href="global.html#AgencyListPage">AgencyListPage</a></li><li><a href="global.html#AgencyNavBar">AgencyNavBar</a></li><li><a href="global.html#AgencyStatus">AgencyStatus</a></li><li><a href="global.html#AgencyStudentDetail">AgencyStudentDetail</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#SignupModal">SignupModal</a></li><li><a href="global.html#StudentAgencyDetail">StudentAgencyDetail</a></li><li><a href="global.html#StudentApplication">StudentApplication</a></li><li><a href="global.html#StudentDetailPage">StudentDetailPage</a></li><li><a href="global.html#StudentHomepage">StudentHomepage</a></li><li><a href="global.html#StudentListPage">StudentListPage</a></li><li><a href="global.html#StudentNavBar">StudentNavBar</a></li><li><a href="global.html#TableRow">TableRow</a></li><li><a href="global.html#VacancyRequest">VacancyRequest</a></li><li><a href="global.html#VacancyRequestTable">VacancyRequestTable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Aug 14 2022 02:26:36 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import SignupModal from "./SignupModal";
 import "../Style/styles.css";
 import { Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from "axios";
-import {MdEmail} from "react-icons/md";
-import {MdLock} from "react-icons/md";
 
-
+/**
+ * Login page
+ * @returns {JSX.Element} 
+ */
 const Login = () =>  {
-    // React States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [modalShow, setModalShow] = useState(false);
@@ -22,6 +21,11 @@ const Login = () =>  {
       pass: "Invalid username or password"
     };
 
+  /**
+   * User login information
+   * @param {string, string} event 
+   * @returns {Object}
+   */
   const loginUser=(event)=>{
     event.preventDefault();
     Axios.post("/login",{
@@ -37,6 +41,7 @@ const Login = () =>  {
         localStorage.setItem("access", response.data[0].access_lvl)
         setIsSubmitted(true);
         localStorage.setItem("isSubmitted", true);
+        //Checking the access level of the user and redirecting to the appropriate page
         switch(response.data[0].access_lvl){
           case 1:
             window.location.href = '/studenthomepage';
@@ -104,6 +109,7 @@ const Login = () =>  {
           <div className="flex-item login-form">
               {renderForm}
           </div>
+          {/* Showing and hiding the modal */}
           <SignupModal show={modalShow} onHide={() => setModalShow(false)}/>
           <div>{loginStatus}</div>
         </div>

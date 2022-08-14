@@ -9,6 +9,10 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/rea
 import NavBar from "../NavBar/AdminNavBar";
 import "../../Style/styles.css";
 
+/**
+ * Student list page
+ * @returns {JSX.Element}
+ */
 function StudentListPage() {
     const history = useHistory();
     const [data,setData]=useState([]);
@@ -16,6 +20,10 @@ function StudentListPage() {
       getData();
     },[]);
 
+    /**
+     * @param {string} 
+     * @returns {Object} Student information
+     */
     const getData = ()=>{
         axios.post("/studapplication").then((response)=>{
             setData(response.data.result);

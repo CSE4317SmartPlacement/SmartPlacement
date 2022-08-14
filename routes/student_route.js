@@ -29,6 +29,8 @@ router.post("/studapplicationadd", (req, res) => {
                 formValue.agent_type_three,
             ],
             (error, result) => {
+                console.log(error);
+                console.log(result);
                 if (error) {
                     res.status(400).json({ success: false, error });
                 } else {

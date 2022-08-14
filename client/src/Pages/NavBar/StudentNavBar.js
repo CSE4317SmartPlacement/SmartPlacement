@@ -5,6 +5,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { Redirect } from 'react-router-dom'
 
+/**
+ * Student NavBar
+ * @returns {JSX.Element}
+ */
 const StudentNavBar = () =>  {
     var isSubmitted= localStorage.getItem("isSubmitted");
     var access= localStorage.getItem("access");
@@ -46,7 +50,7 @@ const StudentNavBar = () =>  {
                     <NavDropdown.Item onClick={signOut} >Sign Out</NavDropdown.Item>
                     </NavDropdown>
                     <Navbar.Text className="justify-content-end">
-                       <h6>Signed in as: {userEmail}</h6>
+                    <h6>Signed in as: {userEmail}</h6>
                     </Navbar.Text>
                 </Nav>
                 </Navbar.Collapse>

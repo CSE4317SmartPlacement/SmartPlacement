@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: NavBar/StudentNavBar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: NavBar/StudentNavBar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container';
+import { Redirect } from 'react-router-dom'
+
+/**
+ * Student NavBar
+ * @returns {JSX.Element}
+ */
+const StudentNavBar = () =>  {
+    var isSubmitted= localStorage.getItem("isSubmitted");
+    var access= localStorage.getItem("access");
+    var userEmail= JSON.parse(localStorage.getItem("user"))[0].username;
+    var isTrueSet = false;
+    var isAgency = false;
+    isTrueSet = (isSubmitted === 'true');
+      if(!isTrueSet){
+          return &lt;Redirect to="/"/>;
+      }
+    isAgency = (access === '1');
+      if(!isAgency){
+          return &lt;Redirect to="/"/>;
+      }
+      const signOut = ()=>{
+        window.location.href = '/';
+        localStorage.setItem("isSubmitted",false);
+      }
+    return (
+        &lt;div>
+            &lt;Navbar bg="primary" expand="lg" variant="dark">
+            &lt;Container className="container-fluid">
+                &lt;h1 style={{fontSize: "20px", color:"white", justifyContent:"start"}}>
+                    &lt;svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        &lt;path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                    &lt;/svg>Smart Placement
+                &lt;/h1>
+                &lt;Navbar.Toggle aria-controls="basic-navbar-nav" />
+                &lt;Navbar.Collapse id="basic-navbar-nav">
+                &lt;Nav className="ms-auto">
+                    &lt;Nav.Link href="/studenthomepage">Home&lt;/Nav.Link>
+                    &lt;Nav.Link href="/studentapplication">Student Application&lt;/Nav.Link>
+                    &lt;Nav.Link href="/student-status">Status&lt;/Nav.Link>
+                    &lt;NavDropdown title="UTA Info" id="basic-nav-dropdown" style={{paddingRight: '150px'}}>
+                    &lt;NavDropdown.Item href="https://www.uta.edu/" target="_blank">UTA Homepage&lt;/NavDropdown.Item>
+                    &lt;NavDropdown.Item href="https://www.uta.edu/mymav/" target="_blank">MyMav&lt;/NavDropdown.Item>
+                    &lt;NavDropdown.Item href="/AdminHomepage">FAQ&lt;/NavDropdown.Item>
+                    &lt;NavDropdown.Divider />
+                    &lt;NavDropdown.Item onClick={signOut} >Sign Out&lt;/NavDropdown.Item>
+                    &lt;/NavDropdown>
+                    &lt;Navbar.Text className="justify-content-end">
+                    &lt;h6>Signed in as: {userEmail}&lt;/h6>
+                    &lt;/Navbar.Text>
+                &lt;/Nav>
+                &lt;/Navbar.Collapse>
+            &lt;/Container>
+            &lt;/Navbar>
+        &lt;/div>
+    );
+}
+
+export default StudentNavBar;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminHomepage">AdminHomepage</a></li><li><a href="global.html#AgencyAccountRequest">AgencyAccountRequest</a></li><li><a href="global.html#AgencyDetailPage">AgencyDetailPage</a></li><li><a href="global.html#AgencyHomepage">AgencyHomepage</a></li><li><a href="global.html#AgencyListPage">AgencyListPage</a></li><li><a href="global.html#AgencyNavBar">AgencyNavBar</a></li><li><a href="global.html#AgencyStatus">AgencyStatus</a></li><li><a href="global.html#AgencyStudentDetail">AgencyStudentDetail</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#SignupModal">SignupModal</a></li><li><a href="global.html#StudentAgencyDetail">StudentAgencyDetail</a></li><li><a href="global.html#StudentApplication">StudentApplication</a></li><li><a href="global.html#StudentDetailPage">StudentDetailPage</a></li><li><a href="global.html#StudentHomepage">StudentHomepage</a></li><li><a href="global.html#StudentListPage">StudentListPage</a></li><li><a href="global.html#StudentNavBar">StudentNavBar</a></li><li><a href="global.html#TableRow">TableRow</a></li><li><a href="global.html#VacancyRequest">VacancyRequest</a></li><li><a href="global.html#VacancyRequestTable">VacancyRequestTable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Aug 14 2022 02:26:36 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

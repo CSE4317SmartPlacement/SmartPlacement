@@ -4,6 +4,11 @@ import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 import Axios from "axios"
 
+/**
+ * Sign up modal
+ * @param {boolean} props 
+ * @returns {JSX.Element} 
+ */
 const SignupModal = (props) => {
     const hover=(e)=> {
         e.target.style.background = '#205eb9';
@@ -19,7 +24,12 @@ const SignupModal = (props) => {
       const [accessLevel, setAccessLevel] = useState("1");
       const [error, setError] = useState(false);
       const [agencyError, setAgencyError] = useState(false);
-
+    
+      /**
+       * Adding a new user to the database
+       * @param {string, string, string, string}
+       * @returns {string}
+       */
       const addUsers=(event)=>{
         event.preventDefault();
         Axios.post("/register",{

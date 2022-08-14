@@ -3,9 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Card, Row, Table } from "react-bootstrap";
 import MyNavbar from "../NavBar/AgencyNavBar";
 import TableRow from "../TableRow";
+
+/**
+ * Agency status page
+ * @returns {JSX.Element}
+ */
 const AgencyStatus = ()=>{
     const [agency, setAgency] = useState({});
     
+    //Getting agency by email
     const getAgencyByEmail = async ()=>{
       const user = localStorage.getItem("user");
       const email = JSON.parse(user)[0].username;

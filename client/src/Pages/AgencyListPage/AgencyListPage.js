@@ -9,6 +9,10 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/rea
 import NavBar from "../NavBar/AdminNavBar";
 import "../../Style/styles.css";
 
+/**
+ * Agency list page
+ * @returns {JSX.Element}
+ */
 const AgencyListPage = () =>  {
     const history = useHistory();
      const [data,setData]=useState([]);
@@ -16,6 +20,7 @@ const AgencyListPage = () =>  {
        getData();
     },[]);
 
+    //Getting agency list
      const getData = ()=>{
          axios.post("/agency").then((response)=>{
              setData(response.data.result);
@@ -49,7 +54,7 @@ const AgencyListPage = () =>  {
            dataField: "detail",
            text: "Detail",
            isDummyField: true,
-           formatter: (cell, row, rowIndex) => <Button variant="primary" onClick={(e) => {
+           formatter: (cell, row,rowIndex) => <Button variant="primary" onClick={(e) => {
              history.push("/agency-detail", { 
                data:row});
            }}>Detail</Button>

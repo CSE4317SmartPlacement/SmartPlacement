@@ -8,9 +8,11 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 import NavBar from "../NavBar/AdminNavBar";
 import "../../Style/styles.css";
-// import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter';
-// import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 
+/**
+ * Vacancy list page
+ * @returns {JSX.Element}
+ */
 const VacancyRequestTable = () =>  {
    const history = useHistory();
     const [data,setData]=useState([]);
@@ -22,6 +24,11 @@ const VacancyRequestTable = () =>  {
     1: 'pending',
     2: 'reject'
   };
+  
+  /**
+   * @param {string} 
+   * @returns {Object} Vacancy information
+   */
     const getData = ()=>{
         Axios.post("/agency-student-request").then((response)=>{
             setData(response.data.result);
@@ -61,7 +68,7 @@ const VacancyRequestTable = () =>  {
           isDummyField: true,
           formatter: (cell, row) => <Button variant="primary" onClick={(e) => {
             history.push("/vacancyrequest", { 
-              data:row});
+              data:data.find(x=>x.id===row.id)});
           }}>Detail</Button>
       }];
 

@@ -5,6 +5,10 @@ import { Dropdown } from "react-bootstrap";
 import axios from "axios";
 import "../Style/styles.css";
 
+/**
+ * Vacancy page
+ * @returns {JSX.Element}
+ */
 const AgencyAccountRequest = () => {
   var states = [
     "Alabama",
@@ -174,6 +178,8 @@ const AgencyAccountRequest = () => {
 
   const [businessAddress, setBusinessAddress] = useState({});
   const [mailingAddress, setMailingAddress] = useState({});
+
+  //Submit form for vacancy request 
   const onSubmit = () => {
     axios
       .post("/agencyadd", {

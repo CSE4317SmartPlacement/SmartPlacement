@@ -10,6 +10,10 @@ import Form from 'react-bootstrap/Form';
 import { Redirect } from 'react-router-dom'
 import NavBar from './NavBar/StudentNavBar';
 
+/**
+ * Student homepage
+ * @returns {JSX.Element}
+ */
 const StudentHomepage = () => {
   return (
     <div>

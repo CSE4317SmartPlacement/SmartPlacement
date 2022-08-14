@@ -5,6 +5,10 @@ import { useHistory } from "react-router-dom";
 import MyNavbar from "../NavBar/AgencyNavBar";
 import TableRow from "../TableRow";
 
+/**
+ * Agency student detail page
+ * @returns {JSX.Element}
+ */
 function AgencyStudentDetail() {
   const history = useHistory();
   const val = history.location.state.data;
@@ -12,6 +16,7 @@ function AgencyStudentDetail() {
   const [matches, setMatches] = useState([]);
   const [isMatched, setIsmatched] = useState(false);
 
+  //Approve scenario
   var onApprove = async (e) => {
     await axios.patch("/studapplicationapproval/" + student.stud_id, {
       status:
@@ -22,7 +27,7 @@ function AgencyStudentDetail() {
     await fetchStudentById();
     history.push("/students");
   };
-
+  //reject scenario
   var onReject = async (e) => {
     await axios.patch("/studapplicationapproval/" + student.stud_id, {
       status: student.approval == "reject" ? "pending" : "reject",
@@ -30,7 +35,7 @@ function AgencyStudentDetail() {
     await fetchStudentById();
     history.push("/students");
   };
-
+  //cancle scenario
   var onCancel = async (e) => {
     await axios.patch("/studapplicationapproval/" + student.stud_id, {
       status: "approved",
@@ -39,11 +44,13 @@ function AgencyStudentDetail() {
     history.push("/students");
   };
 
+  //Getting student details by id
   var fetchStudentById = async () => {
     var response = await axios.post("/studapplication/" + student.stud_id);
     setStudent(response.data.result);
   };
 
+  //Getting student match status by id
   var fetchMatchStatus = async () => {
     var response = await axios.post("/matching/student/" + student.stud_id);
     setIsmatched(response.data.result.length > 0);
@@ -53,6 +60,7 @@ function AgencyStudentDetail() {
   };
 
   const [agency, setAgency] = useState("");
+  //Getting agency details by id
   var fetchAgencyById = async (agencyId) => {
     var response = await axios.post("/agency/" + agencyId);
     setAgency(response.data.result);

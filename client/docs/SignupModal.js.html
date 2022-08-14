@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SignupModal.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SignupModal.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import { Modal } from "react-bootstrap";
+import { Form } from 'react-bootstrap';
+import { useState } from 'react';
+import Axios from "axios"
+
+/**
+ * Sign up modal
+ * @param {boolean} props 
+ * @returns {JSX.Element} 
+ */
+const SignupModal = (props) => {
+    const hover=(e)=> {
+        e.target.style.background = '#205eb9';
+      }
+    const hoverStop=(e)=> {
+        e.target.style.background = '#0d6efd';
+      }
+
+      const [firstName, setFirstName]=useState("");
+      const [lastName, setLastName]=useState("");
+      const [username, setUserName]=useState("");
+      const [password, setPassword]=useState("");
+      const [accessLevel, setAccessLevel] = useState("1");
+      const [error, setError] = useState(false);
+      const [agencyError, setAgencyError] = useState(false);
+    
+      /**
+       * Adding a new user to the database
+       * @param {string, string, string, string}
+       * @returns {string}
+       */
+      const addUsers=(event)=>{
+        event.preventDefault();
+        Axios.post("/register",{
+              firstName:firstName,
+              lastName:lastName,
+              username:username, 
+              password:password,
+              accessLevel:accessLevel
+            }).then((response)=>{
+                if(response.data.add_return === "Student added" || response.data.add_return === "Agency added" || response.data.add_return === "Administrator added"){
+                    setError(false);
+                    setAgencyError(false);
+                    window.location.href='/';
+                }
+                else if(response.data.err || response.data.error || response.data.add_return ==="Email doesn't exist"){
+                    setError(true);
+                    setAgencyError(false);
+                }
+                else if(response.data.add_return === "Agency isn't approved"){
+                    setAgencyError(true);
+                    setError(true);
+                }
+            })
+        };       
+
+    return (
+        &lt;Modal
+        {...props}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        >
+        &lt;Modal.Header closeButton>
+            &lt;Modal.Title id="contained-modal-title-vcenter">
+            Sign Up
+            &lt;h6>Quick and easy&lt;/h6>
+            &lt;/Modal.Title>
+        &lt;/Modal.Header>
+        &lt;Modal.Body>
+        &lt;form>
+        &lt;div class="input-group">
+            &lt;input type="text" className="form-control" placeholder="First name" onChange={(event)=>{
+                setFirstName(event.target.value);
+            }}/>
+            &lt;input type="text" className="form-control" placeholder="Last name" onChange={(event)=>{
+                setLastName(event.target.value);
+            }}/>
+        &lt;/div>
+        &lt;div className="mb-3">
+        &lt;/div>
+        &lt;div className="mb-3">
+            &lt;input
+            type="email"
+            className="form-control"
+            placeholder="Email"
+            onChange={(event)=>{
+                setUserName(event.target.value);
+            }}/>
+        &lt;/div>
+        &lt;div className="mb-3">
+            &lt;input
+            type="password"
+            className="form-control"
+            placeholder="Enter password"
+            onChange={(event)=>{
+                setPassword(event.target.value);
+            }}/>
+        &lt;/div>
+
+        &lt;Form.Select onChange={(event) => setAccessLevel(event.target.value)}>
+            &lt;option>Select Role&lt;/option>
+            &lt;option value="1">Student&lt;/option>
+            &lt;option value="2">Agency&lt;/option>
+            &lt;option value="3">Administrator&lt;/option>
+        &lt;/Form.Select>
+        &lt;div style={{color:"red"}}>
+          {!error?"":(!agencyError?"Try using another email":"You have not been approved")}
+        &lt;/div>
+        &lt;br/>
+        &lt;div className="d-grid">
+            &lt;button onClick={addUsers} onMouseOver={hover} onMouseLeave={hoverStop}  className="btn btn-primary" style={{background:"#0d6efd", border:"#0d6efd"}}>
+            Sign Up
+            &lt;/button>
+        &lt;/div>
+        &lt;/form>
+        &lt;/Modal.Body>
+        &lt;/Modal>
+    );
+}
+
+export default SignupModal
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminHomepage">AdminHomepage</a></li><li><a href="global.html#AgencyAccountRequest">AgencyAccountRequest</a></li><li><a href="global.html#AgencyDetailPage">AgencyDetailPage</a></li><li><a href="global.html#AgencyHomepage">AgencyHomepage</a></li><li><a href="global.html#AgencyListPage">AgencyListPage</a></li><li><a href="global.html#AgencyNavBar">AgencyNavBar</a></li><li><a href="global.html#AgencyStatus">AgencyStatus</a></li><li><a href="global.html#AgencyStudentDetail">AgencyStudentDetail</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#SignupModal">SignupModal</a></li><li><a href="global.html#StudentAgencyDetail">StudentAgencyDetail</a></li><li><a href="global.html#StudentApplication">StudentApplication</a></li><li><a href="global.html#StudentDetailPage">StudentDetailPage</a></li><li><a href="global.html#StudentHomepage">StudentHomepage</a></li><li><a href="global.html#StudentListPage">StudentListPage</a></li><li><a href="global.html#StudentNavBar">StudentNavBar</a></li><li><a href="global.html#TableRow">TableRow</a></li><li><a href="global.html#VacancyRequest">VacancyRequest</a></li><li><a href="global.html#VacancyRequestTable">VacancyRequestTable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Aug 14 2022 02:26:36 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

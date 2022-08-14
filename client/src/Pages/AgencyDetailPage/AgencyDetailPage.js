@@ -5,18 +5,22 @@ import { useHistory } from "react-router-dom";
 import MyNavbar from "../NavBar/AdminNavBar";
 import TableRow from "../TableRow";
 
+/**
+ * Agency detail page
+ * @returns {JSX.Element}
+ */
 function AgencyDetailPage() {
   const history = useHistory();
   const agency = history.location.state.data;
 
+  //Approve scenario
   var onApprove = (e) => {
-
     axios.patch("/agencyapproval/" + agency.agency_id, { "status": agency.approval == "approved" ? "pending" : "approved" })
       .then((response) => {
         history.push("/agencies")
       })
   }
-
+  //Reject scenario
   var onReject = (e) => {
     axios.patch("/agencyapproval/" + agency.agency_id, { "status": agency.approval == "reject" ? "pending" : "reject" })
       .then((response) => {

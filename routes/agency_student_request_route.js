@@ -16,6 +16,8 @@ router.post("/agency-student-requestadd", (req, res) => {
                         JSON.stringify(formValue.other_reports)
                     ],
                     (error, result) => {
+                        console.log(result);
+                        console.log(error);
                         if (error) {
                             res.status(400).json({ success: false, error });
                         } else {

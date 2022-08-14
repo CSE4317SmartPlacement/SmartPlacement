@@ -4,17 +4,22 @@ import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import TableRow from "../TableRow";
 import NavBar from "../NavBar/AdminNavBar";
+
+/**
+ * Vacancy detail page
+ * @returns {JSX.Element}
+ */
 const VacancyRequest = () =>  { 
     const history = useHistory();
     const data = history.location.state.data;
+    //Approve scenario
     var onApprove = (e) => {
-
         Axios.patch("/agency-student-requestapproval/" + data.id, { "status": data.approval == "approved" ? "pending" : "approved" })
           .then((response) => {
             history.push("/vacancyrequesttable");
           })
       }
-    
+    //Reject scenario
       var onReject = (e) => {
         Axios.patch("/agency-student-requestapproval/" + data.id, { "status": data.approval == "reject" ? "pending" : "reject" })
           .then((response) => {
